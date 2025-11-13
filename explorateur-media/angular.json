@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "planet-viewer": {
+    "explorateur-media": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -45,7 +45,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/planet-viewer/en",
+            "outputPath": "dist/explorateur-media/en",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js",
@@ -86,11 +86,11 @@
             },
             "fr": {
               "localize": ["fr"],
-              "outputPath": "dist/planet-viewer/fr"
+              "outputPath": "dist/explorateur-media/fr"
             },
             "es": {
               "localize": ["es"],
-              "outputPath": "dist/planet-viewer/es"
+              "outputPath": "dist/explorateur-media/es"
             }
           },
           "defaultConfiguration": "production"
@@ -99,16 +99,16 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "planet-viewer:build:production"
+              "buildTarget": "explorateur-media:build:production"
             },
             "development": {
-              "buildTarget": "planet-viewer:build:development"
+              "buildTarget": "explorateur-media:build:development"
             },
             "fr": {
-              "buildTarget": "planet-viewer:build:development,fr"
+              "buildTarget": "explorateur-media:build:development,fr"
             },
             "es": {
-              "buildTarget": "planet-viewer:build:development,es"
+              "buildTarget": "explorateur-media:build:development,es"
             }
           },
           "defaultConfiguration": "development"

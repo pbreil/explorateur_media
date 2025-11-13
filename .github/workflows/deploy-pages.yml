@@ -15,8 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PROJECT_NAME: planet-viewer
-  BASE_PATH: /test_jules/
+  PROJECT_NAME: explorateur-media
+  BASE_PATH: /explorateur_media/
   NODE_VERSION: 20
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: planet-viewer
+        working-directory: explorateur-media
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -69,7 +69,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: planet-viewer/${{ steps.resolve.outputs.out }}
+          path: explorateur-media/${{ steps.resolve.outputs.out }}
 
   deploy:
     name: Deploy to GitHub Pages

@@ -1,11 +1,11 @@
 {
-  "name": "planet-viewer",
+  "name": "explorateur-media",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:gh-pages": "ng build --configuration production --output-path docs --base-href /test_jules/",
+    "build:gh-pages": "ng build --configuration production --output-path docs --base-href /explorateur_media/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
