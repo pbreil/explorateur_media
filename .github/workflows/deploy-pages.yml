@@ -55,7 +55,9 @@ jobs:
         id: resolve
         shell: bash
         run: |
-          if [ -d "dist/${{ env.PROJECT_NAME }}/browser" ]; then
+          if [ -d "dist/${{ env.PROJECT_NAME }}/en" ]; then
+            echo "out=dist/${{ env.PROJECT_NAME }}/en" >> "$GITHUB_OUTPUT"
+          elif [ -d "dist/${{ env.PROJECT_NAME }}/browser" ]; then
             echo "out=dist/${{ env.PROJECT_NAME }}/browser" >> "$GITHUB_OUTPUT"
           elif [ -d "dist/${{ env.PROJECT_NAME }}" ]; then
             echo "out=dist/${{ env.PROJECT_NAME }}" >> "$GITHUB_OUTPUT"
