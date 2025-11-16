@@ -43,12 +43,7 @@ jobs:
 
       - name: Build Angular (${{ env.PROJECT_NAME }}) with base-href
         working-directory: ${{ env.PROJECT_NAME }}
-        run: |
-          npx ng version || npx -y @angular/cli@latest ng version
-          npx ng build ${{ env.PROJECT_NAME }} \
-            --configuration production \
-            --base-href ${{ env.BASE_PATH }} \
-            --deploy-url ${{ env.BASE_PATH }}
+        run: npx ng build --configuration production --base-href ${{ env.BASE_PATH }}
 
       - name: Resolve build output folder
         id: resolve
