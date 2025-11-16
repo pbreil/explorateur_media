@@ -25,9 +25,6 @@ jobs:
   build:
     name: Build Angular
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: explorateur-media
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,6 +35,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
+        working-directory: ${{ env.PROJECT_NAME }}
         env:
           PUPPETEER_SKIP_DOWNLOAD: true
         run: |
@@ -48,25 +46,23 @@ jobs:
           fi
 
       - name: Build Angular (${{ env.PROJECT_NAME }}) with base-href
-        run: |
-          npx ng version || npx -y @angular/cli@latest ng version
-          npx ng build ${{ env.PROJECT_NAME }} \
-            --configuration production \
-            --base-href ${{ env.BASE_PATH }}
+        working-directory: ${{ env.PROJECT_NAME }}
+        run: npx ng build --configuration production --base-href ${{ env.BASE_PATH }}
 
       - name: Resolve build output folder
         id: resolve
         shell: bash
         run: |
-          if [ -d "dist/${{ env.PROJECT_NAME }}/en" ]; then
-            echo "out=dist/${{ env.PROJECT_NAME }}/en" >> "$GITHUB_OUTPUT"
-          elif [ -d "dist/${{ env.PROJECT_NAME }}/browser" ]; then
-            echo "out=dist/${{ env.PROJECT_NAME }}/browser" >> "$GITHUB_OUTPUT"
-          elif [ -d "dist/${{ env.PROJECT_NAME }}" ]; then
-            echo "out=dist/${{ env.PROJECT_NAME }}" >> "$GITHUB_OUTPUT"
+          project_path="${{ env.PROJECT_NAME }}"
+          if [ -d "${project_path}/dist/${{ env.PROJECT_NAME }}/en" ]; then
+            echo "out=${project_path}/dist/${{ env.PROJECT_NAME }}/en" >> "$GITHUB_OUTPUT"
+          elif [ -d "${project_path}/dist/${{ env.PROJECT_NAME }}/browser" ]; then
+            echo "out=${project_path}/dist/${{ env.PROJECT_NAME }}/browser" >> "$GITHUB_OUTPUT"
+          elif [ -d "${project_path}/dist/${{ env.PROJECT_NAME }}" ]; then
+            echo "out=${project_path}/dist/${{ env.PROJECT_NAME }}" >> "$GITHUB_OUTPUT"
           else
-            echo "Build output not found under dist/. Contents:" >&2
-            ls -R dist || true
+            echo "Build output not found under ${project_path}/dist/. Contents:" >&2
+            ls -R "${project_path}/dist" || true
             exit 1
           fi
           echo "Using output: ${{ steps.resolve.outputs.out }}"
@@ -74,7 +70,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: explorateur-media/${{ steps.resolve.outputs.out }}
+          path: ${{ steps.resolve.outputs.out }}
 
   deploy:
     name: Deploy to GitHub Pages
