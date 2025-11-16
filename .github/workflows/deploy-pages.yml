@@ -2,7 +2,9 @@ name: Build & Deploy Angular to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - 'claude/**'
   workflow_dispatch:
 
 permissions:
@@ -34,6 +36,8 @@ jobs:
 
       - name: Install dependencies
         working-directory: ${{ env.PROJECT_NAME }}
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: true
         run: |
           if [ -f package-lock.json ]; then
             npm ci
