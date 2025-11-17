@@ -2,19 +2,44 @@
   <div class="flex justify-content-end mb-4">
     <button pButton type="button" (click)="goBack()" i18n>Back to list</button>
   </div>
-  <h2 class="text-2xl font-bold mb-4">{{planet.name}}</h2>
-  <div class="grid grid-cols-2 gap-4">
-    <div>
-      <p class="font-bold" i18n>Diameter:</p>
-      <p>{{planet.diameter}}</p>
+
+  <h2 class="text-3xl font-bold mb-4">{{planet.name}}</h2>
+
+  <p-card header="General Information" i18n-header class="mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <p class="font-bold mb-1" i18n>Diameter:</p>
+        <p class="text-lg">{{planet.diameter}}</p>
+      </div>
+      <div>
+        <p class="font-bold mb-1" i18n>Distance from Sun:</p>
+        <p class="text-lg">{{planet.distanceFromSun}}</p>
+      </div>
+      <div>
+        <p class="font-bold mb-1" i18n>Number of Moons:</p>
+        <p class="text-lg">{{planet.numberOfMoons}}</p>
+      </div>
+      <div>
+        <p class="font-bold mb-1" i18n>Mass:</p>
+        <p class="text-lg">{{planet.mass}}</p>
+      </div>
     </div>
-    <div>
-      <p class="font-bold" i18n>Distance from Sun:</p>
-      <p>{{planet.distanceFromSun}}</p>
+  </p-card>
+
+  <p-card header="Physical Characteristics" i18n-header class="mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <p class="font-bold mb-1" i18n>Surface Gravity:</p>
+        <p class="text-lg">{{planet.surfaceGravity}}</p>
+      </div>
+      <div>
+        <p class="font-bold mb-1" i18n>Average Temperature:</p>
+        <p class="text-lg">{{planet.averageTemperature}}</p>
+      </div>
+      <div>
+        <p class="font-bold mb-1" i18n>Atmospheric Pressure:</p>
+        <p class="text-lg">{{planet.atmosphericPressure}}</p>
+      </div>
     </div>
-    <div>
-      <p class="font-bold" i18n>Number of Moons:</p>
-      <p>{{planet.numberOfMoons}}</p>
-    </div>
-  </div>
+  </p-card>
 </div>

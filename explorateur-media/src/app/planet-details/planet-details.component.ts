@@ -2,18 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PlanetService } from '../planet.service';
+import { Planet } from '../models/planet.model';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-planet-details',
   standalone: true,
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule, ButtonModule, CardModule],
   templateUrl: './planet-details.component.html',
   styleUrls: ['./planet-details.component.css']
 })
 export class PlanetDetailsComponent implements OnInit {
 
-  planet: any;
+  planet: Planet | undefined;
 
   constructor(
     private route: ActivatedRoute,
