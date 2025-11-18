@@ -1,7 +1,15 @@
 <div class="mb-3">
-    <button pButton type="button" (click)="toggleFilters()" class="mb-2">
-        {{ (showFilters ? 'planetTable.hideFilters' : 'planetTable.showFilters') | translate }}
-    </button>
+    <div class="flex gap-2 mb-2">
+        <button pButton type="button" (click)="toggleFilters()">
+            {{ (showFilters ? 'planetTable.hideFilters' : 'planetTable.showFilters') | translate }}
+        </button>
+
+        <select [(ngModel)]="bodyTypeFilter" (change)="onBodyTypeFilterChange()" class="p-2 border rounded">
+            <option value="all">{{ 'planetTable.filterAll' | translate }}</option>
+            <option value="planets">{{ 'planetTable.filterPlanets' | translate }}</option>
+            <option value="satellites">{{ 'planetTable.filterSatellites' | translate }}</option>
+        </select>
+    </div>
 
     <div *ngIf="showFilters" class="p-3 border rounded bg-light">
         <h5 class="mb-3">{{ 'planetTable.selectColumns' | translate }}</h5>
@@ -19,7 +27,7 @@
     </div>
 </div>
 
-<p-table #dt [value]="planets" sortMode="multiple">
+<p-table #dt [value]="filteredBodies" sortMode="multiple">
     <ng-template pTemplate="caption">
         <div class="flex justify-content-end">
             <button pButton type="button" (click)="dt.exportCSV()">{{ 'planetTable.downloadCSV' | translate }}</button>
@@ -33,10 +41,10 @@
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-planet>
-        <tr (click)="goToPlanetDetails(planet.id)" style="cursor: pointer">
+    <ng-template pTemplate="body" let-body>
+        <tr (click)="goToDetails(body)" [style.cursor]="body.type === 'planet' ? 'pointer' : 'default'">
             <td *ngFor="let col of visibleColumns">
-                {{ getFieldValue(planet, col.field) }}
+                {{ getFieldValue(body, col.field) }}
             </td>
         </tr>
     </ng-template>

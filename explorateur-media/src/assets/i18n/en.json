@@ -15,27 +15,48 @@
     "hideFilters": "Hide Column Filters",
     "selectColumns": "Select Columns to Display:",
     "downloadCSV": "Download CSV",
+    "filterAll": "All celestial bodies",
+    "filterPlanets": "Planets only",
+    "filterSatellites": "Satellites only",
     "columns": {
       "name": "Name",
       "diameter": "Diameter",
       "distanceFromSun": "Distance from Sun",
+      "distanceFromPlanet": "Distance from Planet",
+      "orbitalPeriod": "Orbital Period",
       "numberOfMoons": "Number of Moons",
+      "planetName": "Planet",
       "surfaceGravity": "Surface Gravity",
       "atmosphericPressure": "Atmospheric Pressure",
       "averageTemperature": "Average Temperature",
-      "mass": "Mass"
+      "mass": "Mass",
+      "discoveryYear": "Discovery Year",
+      "discoverer": "Discoverer"
     }
   },
   "planetDetails": {
     "backToList": "Back to list",
     "generalInformation": "General Information",
     "physicalCharacteristics": "Physical Characteristics",
+    "satellites": "Satellites",
     "diameter": "Diameter:",
     "distanceFromSun": "Distance from Sun:",
+    "orbitalPeriod": "Orbital Period:",
     "numberOfMoons": "Number of Moons:",
     "mass": "Mass:",
+    "discoveryYear": "Discovery Year:",
+    "discoverer": "Discoverer:",
     "surfaceGravity": "Surface Gravity:",
     "averageTemperature": "Average Temperature:",
-    "atmosphericPressure": "Atmospheric Pressure:"
+    "atmosphericPressure": "Atmospheric Pressure:",
+    "satelliteTable": {
+      "name": "Name",
+      "diameter": "Diameter",
+      "distanceFromPlanet": "Distance",
+      "orbitalPeriod": "Orbital Period",
+      "mass": "Mass",
+      "discoveryYear": "Discovery",
+      "discoverer": "Discoverer"
+    }
   }
 }

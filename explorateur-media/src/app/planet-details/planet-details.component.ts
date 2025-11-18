@@ -2,21 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PlanetService } from '../planet.service';
-import { Planet } from '../models/planet.model';
+import { Planet, Satellite } from '../models/planet.model';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-planet-details',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CardModule, TranslateModule],
+  imports: [CommonModule, ButtonModule, CardModule, TableModule, TranslateModule],
   templateUrl: './planet-details.component.html',
   styleUrls: ['./planet-details.component.css']
 })
 export class PlanetDetailsComponent implements OnInit {
 
   planet: Planet | undefined;
+  satellites: Satellite[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +30,7 @@ export class PlanetDetailsComponent implements OnInit {
     const planetId = this.route.snapshot.paramMap.get('id');
     if (planetId) {
       this.planet = this.planetService.getPlanet(planetId);
+      this.satellites = this.planetService.getSatellitesForPlanet(planetId);
     }
   }
 
