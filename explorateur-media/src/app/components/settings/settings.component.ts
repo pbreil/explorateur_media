@@ -26,7 +26,11 @@ export class SettingsComponent {
   selectedLanguage: string;
   languages: Language[] = [
     { code: 'fr', label: 'Français' },
-    { code: 'en', label: 'English' }
+    { code: 'en', label: 'English' },
+    { code: 'es', label: 'Español' },
+    { code: 'pt', label: 'Português' },
+    { code: 'it', label: 'Italiano' },
+    { code: 'de', label: 'Deutsch' }
   ];
 
   constructor(private languageService: LanguageService) {

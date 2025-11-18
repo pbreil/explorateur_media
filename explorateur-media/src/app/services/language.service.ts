@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageService {
   private readonly LANGUAGE_COOKIE_NAME = 'preferredLanguage';
-  private readonly AVAILABLE_LANGUAGES = ['en', 'fr'];
+  private readonly AVAILABLE_LANGUAGES = ['en', 'fr', 'es', 'pt', 'it', 'de'];
   private readonly DEFAULT_LANGUAGE = 'fr';
 
   constructor(private translate: TranslateService) {
