@@ -1,0 +1,41 @@
+{
+  "app": {
+    "title": "Planet Viewer",
+    "settings": "Settings"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "selectLanguage": "Select Language",
+    "close": "Close",
+    "save": "Save"
+  },
+  "planetTable": {
+    "showFilters": "Show Column Filters",
+    "hideFilters": "Hide Column Filters",
+    "selectColumns": "Select Columns to Display:",
+    "downloadCSV": "Download CSV",
+    "columns": {
+      "name": "Name",
+      "diameter": "Diameter",
+      "distanceFromSun": "Distance from Sun",
+      "numberOfMoons": "Number of Moons",
+      "surfaceGravity": "Surface Gravity",
+      "atmosphericPressure": "Atmospheric Pressure",
+      "averageTemperature": "Average Temperature",
+      "mass": "Mass"
+    }
+  },
+  "planetDetails": {
+    "backToList": "Back to list",
+    "generalInformation": "General Information",
+    "physicalCharacteristics": "Physical Characteristics",
+    "diameter": "Diameter:",
+    "distanceFromSun": "Distance from Sun:",
+    "numberOfMoons": "Number of Moons:",
+    "mass": "Mass:",
+    "surfaceGravity": "Surface Gravity:",
+    "averageTemperature": "Average Temperature:",
+    "atmosphericPressure": "Atmospheric Pressure:"
+  }
+}

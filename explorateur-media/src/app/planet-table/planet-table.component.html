@@ -1,10 +1,10 @@
 <div class="mb-3">
-    <button pButton type="button" (click)="toggleFilters()" class="mb-2" i18n>
-        {{ showFilters ? 'Hide Column Filters' : 'Show Column Filters' }}
+    <button pButton type="button" (click)="toggleFilters()" class="mb-2">
+        {{ (showFilters ? 'planetTable.hideFilters' : 'planetTable.showFilters') | translate }}
     </button>
 
     <div *ngIf="showFilters" class="p-3 border rounded bg-light">
-        <h5 class="mb-3" i18n>Select Columns to Display:</h5>
+        <h5 class="mb-3">{{ 'planetTable.selectColumns' | translate }}</h5>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div *ngFor="let col of columns" class="flex align-items-center">
                 <p-checkbox
@@ -22,7 +22,7 @@
 <p-table #dt [value]="planets" sortMode="multiple">
     <ng-template pTemplate="caption">
         <div class="flex justify-content-end">
-            <button pButton type="button" (click)="dt.exportCSV()" i18n>Download CSV</button>
+            <button pButton type="button" (click)="dt.exportCSV()">{{ 'planetTable.downloadCSV' | translate }}</button>
         </div>
     </ng-template>
     <ng-template pTemplate="header">

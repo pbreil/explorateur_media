@@ -1,43 +1,43 @@
 <div *ngIf="planet">
   <div class="flex justify-content-end mb-4">
-    <button pButton type="button" (click)="goBack()" i18n>Back to list</button>
+    <button pButton type="button" (click)="goBack()">{{ 'planetDetails.backToList' | translate }}</button>
   </div>
 
   <h2 class="text-3xl font-bold mb-4">{{planet.name}}</h2>
 
-  <p-card header="General Information" i18n-header class="mb-4">
+  <p-card [header]="'planetDetails.generalInformation' | translate" class="mb-4">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <p class="font-bold mb-1" i18n>Diameter:</p>
+        <p class="font-bold mb-1">{{ 'planetDetails.diameter' | translate }}</p>
         <p class="text-lg">{{planet.diameter}}</p>
       </div>
       <div>
-        <p class="font-bold mb-1" i18n>Distance from Sun:</p>
+        <p class="font-bold mb-1">{{ 'planetDetails.distanceFromSun' | translate }}</p>
         <p class="text-lg">{{planet.distanceFromSun}}</p>
       </div>
       <div>
-        <p class="font-bold mb-1" i18n>Number of Moons:</p>
+        <p class="font-bold mb-1">{{ 'planetDetails.numberOfMoons' | translate }}</p>
         <p class="text-lg">{{planet.numberOfMoons}}</p>
       </div>
       <div>
-        <p class="font-bold mb-1" i18n>Mass:</p>
+        <p class="font-bold mb-1">{{ 'planetDetails.mass' | translate }}</p>
         <p class="text-lg">{{planet.mass}}</p>
       </div>
     </div>
   </p-card>
 
-  <p-card header="Physical Characteristics" i18n-header class="mb-4">
+  <p-card [header]="'planetDetails.physicalCharacteristics' | translate" class="mb-4">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <p class="font-bold mb-1" i18n>Surface Gravity:</p>
+        <p class="font-bold mb-1">{{ 'planetDetails.surfaceGravity' | translate }}</p>
         <p class="text-lg">{{planet.surfaceGravity}}</p>
       </div>
       <div>
-        <p class="font-bold mb-1" i18n>Average Temperature:</p>
+        <p class="font-bold mb-1">{{ 'planetDetails.averageTemperature' | translate }}</p>
         <p class="text-lg">{{planet.averageTemperature}}</p>
       </div>
       <div>
-        <p class="font-bold mb-1" i18n>Atmospheric Pressure:</p>
+        <p class="font-bold mb-1">{{ 'planetDetails.atmosphericPressure' | translate }}</p>
         <p class="text-lg">{{planet.atmosphericPressure}}</p>
       </div>
     </div>
