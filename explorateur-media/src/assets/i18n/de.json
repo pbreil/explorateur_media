@@ -15,27 +15,48 @@
     "hideFilters": "Spaltenfilter ausblenden",
     "selectColumns": "Anzuzeigende Spalten auswählen:",
     "downloadCSV": "CSV herunterladen",
+    "filterAll": "Alle Himmelskörper",
+    "filterPlanets": "Nur Planeten",
+    "filterSatellites": "Nur Satelliten",
     "columns": {
       "name": "Name",
       "diameter": "Durchmesser",
       "distanceFromSun": "Entfernung zur Sonne",
+      "distanceFromPlanet": "Entfernung zum Planeten",
+      "orbitalPeriod": "Umlaufzeit",
       "numberOfMoons": "Anzahl der Monde",
+      "planetName": "Planet",
       "surfaceGravity": "Oberflächengravitation",
       "atmosphericPressure": "Atmosphärischer Druck",
       "averageTemperature": "Durchschnittstemperatur",
-      "mass": "Masse"
+      "mass": "Masse",
+      "discoveryYear": "Entdeckungsjahr",
+      "discoverer": "Entdecker"
     }
   },
   "planetDetails": {
     "backToList": "Zurück zur Liste",
     "generalInformation": "Allgemeine Informationen",
     "physicalCharacteristics": "Physikalische Eigenschaften",
+    "satellites": "Satelliten",
     "diameter": "Durchmesser:",
     "distanceFromSun": "Entfernung zur Sonne:",
+    "orbitalPeriod": "Umlaufzeit:",
     "numberOfMoons": "Anzahl der Monde:",
     "mass": "Masse:",
+    "discoveryYear": "Entdeckungsjahr:",
+    "discoverer": "Entdecker:",
     "surfaceGravity": "Oberflächengravitation:",
     "averageTemperature": "Durchschnittstemperatur:",
-    "atmosphericPressure": "Atmosphärischer Druck:"
+    "atmosphericPressure": "Atmosphärischer Druck:",
+    "satelliteTable": {
+      "name": "Name",
+      "diameter": "Durchmesser",
+      "distanceFromPlanet": "Entfernung",
+      "orbitalPeriod": "Umlaufzeit",
+      "mass": "Masse",
+      "discoveryYear": "Entdeckung",
+      "discoverer": "Entdecker"
+    }
   }
 }

@@ -8,4 +8,19 @@ export interface Planet {
   atmosphericPressure: string;
   averageTemperature: string;
   mass: string;
+  discoveryYear: string;
+  discoverer: string;
+  orbitalPeriod: string;
+}
+
+export interface Satellite {
+  id: string;
+  name: string;
+  planetId: string;
+  diameter: string;
+  distanceFromPlanet: string;
+  orbitalPeriod: string;
+  mass: string;
+  discoveryYear: string;
+  discoverer: string;
 }

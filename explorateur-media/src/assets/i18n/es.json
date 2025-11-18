@@ -15,27 +15,48 @@
     "hideFilters": "Ocultar filtros de columnas",
     "selectColumns": "Seleccionar columnas para mostrar:",
     "downloadCSV": "Descargar CSV",
+    "filterAll": "Todos los astros",
+    "filterPlanets": "Solo planetas",
+    "filterSatellites": "Solo satélites",
     "columns": {
       "name": "Nombre",
       "diameter": "Diámetro",
       "distanceFromSun": "Distancia del Sol",
+      "distanceFromPlanet": "Distancia del planeta",
+      "orbitalPeriod": "Período orbital",
       "numberOfMoons": "Número de lunas",
+      "planetName": "Planeta",
       "surfaceGravity": "Gravedad superficial",
       "atmosphericPressure": "Presión atmosférica",
       "averageTemperature": "Temperatura promedio",
-      "mass": "Masa"
+      "mass": "Masa",
+      "discoveryYear": "Año de descubrimiento",
+      "discoverer": "Descubridor"
     }
   },
   "planetDetails": {
     "backToList": "Volver a la lista",
     "generalInformation": "Información general",
     "physicalCharacteristics": "Características físicas",
+    "satellites": "Satélites",
     "diameter": "Diámetro:",
     "distanceFromSun": "Distancia del Sol:",
+    "orbitalPeriod": "Período orbital:",
     "numberOfMoons": "Número de lunas:",
     "mass": "Masa:",
+    "discoveryYear": "Año de descubrimiento:",
+    "discoverer": "Descubridor:",
     "surfaceGravity": "Gravedad superficial:",
     "averageTemperature": "Temperatura promedio:",
-    "atmosphericPressure": "Presión atmosférica:"
+    "atmosphericPressure": "Presión atmosférica:",
+    "satelliteTable": {
+      "name": "Nombre",
+      "diameter": "Diámetro",
+      "distanceFromPlanet": "Distancia",
+      "orbitalPeriod": "Período orbital",
+      "mass": "Masa",
+      "discoveryYear": "Descubrimiento",
+      "discoverer": "Descubridor"
+    }
   }
 }
