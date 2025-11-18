@@ -5,11 +5,12 @@ import { PlanetService } from '../planet.service';
 import { Planet } from '../models/planet.model';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-planet-details',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CardModule],
+  imports: [CommonModule, ButtonModule, CardModule, TranslateModule],
   templateUrl: './planet-details.component.html',
   styleUrls: ['./planet-details.component.css']
 })

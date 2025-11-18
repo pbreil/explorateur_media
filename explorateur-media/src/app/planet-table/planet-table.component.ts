@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 interface ColumnConfig {
   field: string;
@@ -19,29 +20,72 @@ interface ColumnConfig {
   templateUrl: './planet-table.component.html',
   styleUrls: ['./planet-table.component.css'],
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, CheckboxModule, FormsModule]
+  imports: [CommonModule, TableModule, ButtonModule, CheckboxModule, FormsModule, TranslateModule]
 })
 export class PlanetTableComponent implements OnInit {
 
   planets: Planet[] = [];
-  columns: ColumnConfig[] = [
-    { field: 'name', header: 'Name', visible: true },
-    { field: 'diameter', header: 'Diameter', visible: true },
-    { field: 'distanceFromSun', header: 'Distance from Sun', visible: true },
-    { field: 'numberOfMoons', header: 'Number of Moons', visible: true },
-    { field: 'surfaceGravity', header: 'Surface Gravity', visible: true },
-    { field: 'atmosphericPressure', header: 'Atmospheric Pressure', visible: true },
-    { field: 'averageTemperature', header: 'Average Temperature', visible: true },
-    { field: 'mass', header: 'Mass', visible: true }
+  columns: ColumnConfig[] = [];
+
+  private columnDefinitions = [
+    { field: 'name', translationKey: 'planetTable.columns.name' },
+    { field: 'diameter', translationKey: 'planetTable.columns.diameter' },
+    { field: 'distanceFromSun', translationKey: 'planetTable.columns.distanceFromSun' },
+    { field: 'numberOfMoons', translationKey: 'planetTable.columns.numberOfMoons' },
+    { field: 'surfaceGravity', translationKey: 'planetTable.columns.surfaceGravity' },
+    { field: 'atmosphericPressure', translationKey: 'planetTable.columns.atmosphericPressure' },
+    { field: 'averageTemperature', translationKey: 'planetTable.columns.averageTemperature' },
+    { field: 'mass', translationKey: 'planetTable.columns.mass' }
   ];
 
   showFilters: boolean = false;
 
-  constructor(private planetService: PlanetService, private router: Router) { }
+  constructor(
+    private planetService: PlanetService,
+    private router: Router,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.planets = this.planetService.getPlanets();
+    this.initializeColumns();
     this.loadColumnPreferences();
+
+    // Re-initialize columns when language changes
+    this.translate.onLangChange.subscribe(() => {
+      this.initializeColumns();
+    });
+  }
+
+  private initializeColumns(): void {
+    const savedPreferences = this.getSavedPreferences();
+
+    this.columns = this.columnDefinitions.map(def => ({
+      field: def.field,
+      header: this.translate.instant(def.translationKey),
+      visible: savedPreferences[def.field] !== undefined ? savedPreferences[def.field] : true
+    }));
+  }
+
+  private getSavedPreferences(): { [key: string]: boolean } {
+    const cookies = document.cookie.split(';');
+    const preferenceCookie = cookies.find(cookie => cookie.trim().startsWith('planetColumnPreferences='));
+
+    if (preferenceCookie) {
+      try {
+        const value = preferenceCookie.split('=')[1];
+        const preferences = JSON.parse(decodeURIComponent(value));
+        const result: { [key: string]: boolean } = {};
+        preferences.forEach((pref: any) => {
+          result[pref.field] = pref.visible;
+        });
+        return result;
+      } catch (e) {
+        console.error('Error loading column preferences:', e);
+      }
+    }
+
+    return {};
   }
 
   get visibleColumns(): ColumnConfig[] {
@@ -65,24 +109,7 @@ export class PlanetTableComponent implements OnInit {
   }
 
   loadColumnPreferences(): void {
-    const cookies = document.cookie.split(';');
-    const preferenceCookie = cookies.find(cookie => cookie.trim().startsWith('planetColumnPreferences='));
-
-    if (preferenceCookie) {
-      try {
-        const value = preferenceCookie.split('=')[1];
-        const preferences = JSON.parse(decodeURIComponent(value));
-
-        preferences.forEach((pref: any) => {
-          const column = this.columns.find(col => col.field === pref.field);
-          if (column) {
-            column.visible = pref.visible;
-          }
-        });
-      } catch (e) {
-        console.error('Error loading column preferences:', e);
-      }
-    }
+    // Preferences are now loaded in initializeColumns
   }
 
   goToPlanetDetails(planetId: string): void {

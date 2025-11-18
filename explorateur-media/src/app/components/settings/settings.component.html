@@ -1,0 +1,28 @@
+<p-dialog
+  [header]="'settings.title' | translate"
+  [(visible)]="visible"
+  (onHide)="onHide()"
+  [modal]="true"
+  [style]="{ width: '450px' }"
+  [draggable]="false"
+  [resizable]="false">
+
+  <div class="p-4">
+    <div class="mb-4">
+      <label class="block mb-2 font-semibold">{{ 'settings.language' | translate }}</label>
+      <p-select
+        [(ngModel)]="selectedLanguage"
+        [options]="languages"
+        optionLabel="label"
+        optionValue="code"
+        [placeholder]="'settings.selectLanguage' | translate"
+        (onChange)="onLanguageChange()"
+        styleClass="w-full">
+      </p-select>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button pButton type="button" [label]="'settings.close' | translate" (click)="close()"></button>
+  </ng-template>
+</p-dialog>

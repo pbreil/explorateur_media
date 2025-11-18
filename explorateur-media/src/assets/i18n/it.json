@@ -1,0 +1,41 @@
+{
+  "app": {
+    "title": "Esploratore di Pianeti",
+    "settings": "Impostazioni"
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "language": "Lingua",
+    "selectLanguage": "Seleziona lingua",
+    "close": "Chiudi",
+    "save": "Salva"
+  },
+  "planetTable": {
+    "showFilters": "Mostra filtri colonne",
+    "hideFilters": "Nascondi filtri colonne",
+    "selectColumns": "Seleziona colonne da visualizzare:",
+    "downloadCSV": "Scarica CSV",
+    "columns": {
+      "name": "Nome",
+      "diameter": "Diametro",
+      "distanceFromSun": "Distanza dal Sole",
+      "numberOfMoons": "Numero di lune",
+      "surfaceGravity": "Gravità superficiale",
+      "atmosphericPressure": "Pressione atmosferica",
+      "averageTemperature": "Temperatura media",
+      "mass": "Massa"
+    }
+  },
+  "planetDetails": {
+    "backToList": "Torna all'elenco",
+    "generalInformation": "Informazioni generali",
+    "physicalCharacteristics": "Caratteristiche fisiche",
+    "diameter": "Diametro:",
+    "distanceFromSun": "Distanza dal Sole:",
+    "numberOfMoons": "Numero di lune:",
+    "mass": "Massa:",
+    "surfaceGravity": "Gravità superficiale:",
+    "averageTemperature": "Temperatura media:",
+    "atmosphericPressure": "Pressione atmosferica:"
+  }
+}
