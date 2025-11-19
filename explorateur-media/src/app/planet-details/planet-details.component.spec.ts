@@ -54,7 +54,7 @@ describe('PlanetDetailsComponent', () => {
 
   it('should get planet details on init', () => {
     expect(component.planet).toBeDefined();
-    expect(component.planet.name).toBe('Tatooine');
+    expect(component.planet?.name).toBe('Tatooine');
   });
 
   it('should call location.back on goBack', () => {
