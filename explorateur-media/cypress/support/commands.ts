@@ -24,7 +24,14 @@ declare global {
 
 Cypress.Commands.add('waitForTranslations', () => {
   // Wait for the page to load and translations to be applied
-  cy.wait(500);
+  // Check that translation keys are not visible in the DOM
+  cy.get('body', { timeout: 10000 }).should(($body) => {
+    const text = $body.text();
+    // Ensure no i18n keys are visible
+    expect(text).to.not.include('app.title');
+    expect(text).to.not.include('planetTable.showFilters');
+    expect(text).to.not.include('planetTable.hideFilters');
+  });
 });
 
 export {};
