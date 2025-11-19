@@ -1,5 +1,10 @@
 /* Import PrimeIcons */
 @import "primeicons/primeicons.css";
 
+/* Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body { margin: 0; font-family: system-ui, Roboto, Arial, sans-serif; }
 .app-shell { padding: 16px; }

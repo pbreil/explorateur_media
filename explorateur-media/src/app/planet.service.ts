@@ -5,11 +5,17 @@ import { Planet, Satellite } from './models/planet.model';
   providedIn: 'root'
 })
 export class PlanetService {
+  private planetsCache?: Planet[];
+  private satellitesCache?: Satellite[];
 
   constructor() { }
 
   getPlanets(): Planet[] {
-    return [
+    if (this.planetsCache) {
+      return this.planetsCache;
+    }
+
+    this.planetsCache = [
       {
         id: 'mercury',
         name: 'Mercury',
@@ -123,6 +129,8 @@ export class PlanetService {
         orbitalPeriod: '164.79 years'
       }
     ];
+
+    return this.planetsCache;
   }
 
   getPlanet(id: string): Planet | undefined {
@@ -130,7 +138,11 @@ export class PlanetService {
   }
 
   getSatellites(): Satellite[] {
-    return [
+    if (this.satellitesCache) {
+      return this.satellitesCache;
+    }
+
+    this.satellitesCache = [
       // Moon (Earth)
       {
         id: 'moon',
@@ -314,6 +326,8 @@ export class PlanetService {
         discoverer: 'Voyager 2'
       }
     ];
+
+    return this.satellitesCache;
   }
 
   getSatellitesForPlanet(planetId: string): Satellite[] {

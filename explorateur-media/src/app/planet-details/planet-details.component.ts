@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PlanetService } from '../planet.service';
@@ -13,7 +13,8 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, ButtonModule, CardModule, TableModule, TranslateModule],
   templateUrl: './planet-details.component.html',
-  styleUrls: ['./planet-details.component.css']
+  styleUrls: ['./planet-details.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlanetDetailsComponent implements OnInit {
 
