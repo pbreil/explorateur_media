@@ -1,5 +1,5 @@
 <div class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
-  <div class="container mx-auto px-4 py-8">
+  <div *ngIf="translationsLoaded" class="container mx-auto px-4 py-8">
     <div class="relative">
       <h1 class="text-5xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent mb-8">
         {{ 'app.title' | translate }}
@@ -18,6 +18,12 @@
       <router-outlet></router-outlet>
     </div>
   </div>
+  <div *ngIf="!translationsLoaded" class="container mx-auto px-4 py-8 flex items-center justify-center min-h-screen">
+    <div class="text-center">
+      <i class="pi pi-spin pi-spinner text-4xl text-blue-600"></i>
+      <p class="mt-4 text-gray-600">Loading...</p>
+    </div>
+  </div>
 </div>
 
-<app-settings [(visible)]="showSettings"></app-settings>
+<app-settings *ngIf="translationsLoaded" [(visible)]="showSettings"></app-settings>

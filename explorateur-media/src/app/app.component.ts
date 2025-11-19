@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from './services/language.service';
 import { SettingsComponent } from './components/settings/settings.component';
@@ -9,14 +10,22 @@ import { TooltipModule } from 'primeng/tooltip';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TranslateModule, SettingsComponent, ButtonModule, TooltipModule],
+  imports: [CommonModule, RouterOutlet, TranslateModule, SettingsComponent, ButtonModule, TooltipModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   showSettings = false;
+  translationsLoaded = false;
 
-  constructor(private languageService: LanguageService) {}
+  constructor(public languageService: LanguageService) {
+    this.initializeTranslations();
+  }
+
+  private async initializeTranslations(): Promise<void> {
+    await this.languageService.waitForInitialization();
+    this.translationsLoaded = true;
+  }
 
   openSettings(): void {
     this.showSettings = true;
