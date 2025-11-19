@@ -41,8 +41,10 @@ export class SettingsComponent {
     this.visibleChange.emit(false);
   }
 
-  onLanguageChange(): void {
-    this.languageService.setLanguage(this.selectedLanguage);
+  async onLanguageChange(): Promise<void> {
+    await this.languageService.setLanguage(this.selectedLanguage);
+    // Auto-close the dialog after language change
+    this.close();
   }
 
   close(): void {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,13 @@ export class LanguageService {
   private readonly LANGUAGE_COOKIE_NAME = 'preferredLanguage';
   private readonly AVAILABLE_LANGUAGES = ['en', 'fr', 'es', 'pt', 'it', 'de'];
   private readonly DEFAULT_LANGUAGE = 'fr';
+  private initialized = false;
 
   constructor(private translate: TranslateService) {
     this.initLanguage();
   }
 
-  private initLanguage(): void {
+  private async initLanguage(): Promise<void> {
     this.translate.addLangs(this.AVAILABLE_LANGUAGES);
 
     const savedLanguage = this.getLanguageFromCookie();
@@ -28,13 +30,27 @@ export class LanguageService {
     }
 
     this.translate.setDefaultLang(this.DEFAULT_LANGUAGE);
-    this.translate.use(languageToUse);
+
+    // Wait for translations to load
+    try {
+      await firstValueFrom(this.translate.use(languageToUse));
+      this.initialized = true;
+    } catch (error) {
+      console.error('Error loading translations:', error);
+      // Fallback to default language
+      await firstValueFrom(this.translate.use(this.DEFAULT_LANGUAGE));
+      this.initialized = true;
+    }
   }
 
-  setLanguage(language: string): void {
+  async setLanguage(language: string): Promise<void> {
     if (this.AVAILABLE_LANGUAGES.includes(language)) {
-      this.translate.use(language);
-      this.saveLanguageToCookie(language);
+      try {
+        await firstValueFrom(this.translate.use(language));
+        this.saveLanguageToCookie(language);
+      } catch (error) {
+        console.error('Error setting language:', error);
+      }
     }
   }
 
@@ -44,6 +60,24 @@ export class LanguageService {
 
   getAvailableLanguages(): string[] {
     return this.AVAILABLE_LANGUAGES;
+  }
+
+  isInitialized(): boolean {
+    return this.initialized;
+  }
+
+  async waitForInitialization(): Promise<void> {
+    if (this.initialized) return;
+
+    // Wait up to 5 seconds for initialization
+    const maxWait = 5000;
+    const interval = 100;
+    let waited = 0;
+
+    while (!this.initialized && waited < maxWait) {
+      await new Promise(resolve => setTimeout(resolve, interval));
+      waited += interval;
+    }
   }
 
   private saveLanguageToCookie(language: string): void {

@@ -9,6 +9,7 @@ import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../services/language.service';
 
 interface ColumnConfig {
   field: string;
@@ -78,10 +79,14 @@ export class PlanetTableComponent implements OnInit {
   constructor(
     private planetService: PlanetService,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private languageService: LanguageService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    // Wait for translations to be loaded
+    await this.languageService.waitForInitialization();
+
     this.loadCelestialBodies();
     this.initializeBodyTypeOptions();
     this.initializeColumns();
