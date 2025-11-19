@@ -1,6 +1,6 @@
 <div class="mb-3">
     <div class="flex gap-2 mb-2">
-        <button pButton type="button" (click)="toggleFilters()">
+        <button pButton type="button" icon="pi pi-filter" (click)="toggleFilters()">
             {{ (showFilters ? 'planetTable.hideFilters' : 'planetTable.showFilters') | translate }}
         </button>
 
@@ -11,17 +11,17 @@
         </select>
     </div>
 
-    <div *ngIf="showFilters" class="p-3 border rounded bg-light">
+    <div *ngIf="showFilters" class="filters-panel">
         <h5 class="mb-3">{{ 'planetTable.selectColumns' | translate }}</h5>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <div *ngFor="let col of columns" class="flex align-items-center">
+        <div class="filter-options">
+            <div *ngFor="let col of columns" class="filter-option">
                 <p-checkbox
                     [(ngModel)]="col.visible"
                     [binary]="true"
                     [inputId]="col.field"
                     (onChange)="onColumnToggle()">
                 </p-checkbox>
-                <label [for]="col.field" class="ml-2">{{ col.header }}</label>
+                <label [for]="col.field">{{ col.header }}</label>
             </div>
         </div>
     </div>
