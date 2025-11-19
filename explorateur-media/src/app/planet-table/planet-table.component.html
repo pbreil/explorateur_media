@@ -1,49 +1,76 @@
-<div class="mb-3">
-    <div class="flex gap-2 mb-2">
-        <button pButton type="button" icon="pi pi-filter" (click)="toggleFilters()">
-            {{ (showFilters ? 'planetTable.hideFilters' : 'planetTable.showFilters') | translate }}
+<div class="mb-4">
+    <div class="flex gap-3 mb-3 flex-wrap items-center">
+        <button
+            pButton
+            type="button"
+            [icon]="showFilters ? 'pi pi-eye-slash' : 'pi pi-eye'"
+            [label]="(showFilters ? 'planetTable.hideFilters' : 'planetTable.showFilters') | translate"
+            (click)="toggleFilters()"
+            class="p-button-outlined">
         </button>
 
-        <select [(ngModel)]="bodyTypeFilter" (change)="onBodyTypeFilterChange()" class="p-2 border rounded">
-            <option value="all">{{ 'planetTable.filterAll' | translate }}</option>
-            <option value="planets">{{ 'planetTable.filterPlanets' | translate }}</option>
-            <option value="satellites">{{ 'planetTable.filterSatellites' | translate }}</option>
-        </select>
+        <p-select
+            [(ngModel)]="bodyTypeFilter"
+            [options]="bodyTypeOptions"
+            optionLabel="label"
+            optionValue="value"
+            (onChange)="onBodyTypeFilterChange()"
+            [placeholder]="'planetTable.filterAll' | translate"
+            styleClass="w-64">
+        </p-select>
     </div>
 
-    <div *ngIf="showFilters" class="filters-panel">
-        <h5 class="mb-3">{{ 'planetTable.selectColumns' | translate }}</h5>
-        <div class="filter-options">
-            <div *ngFor="let col of columns" class="filter-option">
+    <div *ngIf="showFilters" class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-3">
+        <h5 class="text-lg font-semibold text-blue-900 mb-3">{{ 'planetTable.selectColumns' | translate }}</h5>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div *ngFor="let col of columns" class="flex items-center gap-2">
                 <p-checkbox
                     [(ngModel)]="col.visible"
                     [binary]="true"
                     [inputId]="col.field"
                     (onChange)="onColumnToggle()">
                 </p-checkbox>
-                <label [for]="col.field">{{ col.header }}</label>
+                <label [for]="col.field" class="cursor-pointer select-none text-gray-700">{{ col.header }}</label>
             </div>
         </div>
     </div>
 </div>
 
-<p-table #dt [value]="filteredBodies" sortMode="multiple">
+<p-table
+    #dt
+    [value]="filteredBodies"
+    sortMode="multiple"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [tableStyle]="{'min-width': '50rem'}"
+    styleClass="p-datatable-striped p-datatable-gridlines">
     <ng-template pTemplate="caption">
-        <div class="flex justify-content-end">
-            <button pButton type="button" (click)="dt.exportCSV()">{{ 'planetTable.downloadCSV' | translate }}</button>
+        <div class="flex justify-end bg-blue-100 p-3 rounded-t-lg">
+            <button
+                pButton
+                type="button"
+                icon="pi pi-download"
+                [label]="'planetTable.downloadCSV' | translate"
+                (click)="dt.exportCSV()"
+                class="p-button-success">
+            </button>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
-        <tr>
-            <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.field">
+        <tr class="bg-blue-600 text-white">
+            <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.field" class="text-white">
                 {{ col.header }}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-body>
-        <tr (click)="goToDetails(body)" [style.cursor]="body.type === 'planet' ? 'pointer' : 'default'">
-            <td *ngFor="let col of visibleColumns">
+        <tr
+            (click)="goToDetails(body)"
+            [style.cursor]="body.type === 'planet' ? 'pointer' : 'default'"
+            [class]="body.type === 'planet' ? 'hover:bg-blue-50 transition-colors' : ''">
+            <td *ngFor="let col of visibleColumns" class="text-gray-800">
                 {{ getFieldValue(body, col.field) }}
             </td>
         </tr>
