@@ -178,6 +178,43 @@ Le fichier `cypress/e2e/i18n.cy.ts` contient des tests exhaustifs:
 
 5. **JAMAIS** afficher de contenu traduit sans la garde `translationsLoaded`
 
+### Gestion des chemins de fichiers
+
+**RÈGLE ABSOLUE**: Toujours utiliser des chemins relatifs pour les imports, templates et styles.
+
+1. **TOUJOURS** utiliser des chemins relatifs pour les imports TypeScript:
+   ```typescript
+   // ✅ CORRECT
+   import { PlanetService } from './services/planet.service';
+   import { Planet } from '../models/planet.model';
+
+   // ❌ INCORRECT
+   import { PlanetService } from '/app/services/planet.service';
+   ```
+
+2. **TOUJOURS** utiliser `./` pour templateUrl et styleUrls:
+   ```typescript
+   @Component({
+     selector: 'app-example',
+     templateUrl: './example.component.html',    // ✅ Correct
+     styleUrls: ['./example.component.scss']     // ✅ Correct
+   })
+   ```
+
+3. **Exceptions autorisées** (ce sont des URLs, pas des chemins de fichiers):
+   - `<base href="/">` dans index.html (requis par Angular Router)
+   - Routes Angular: `this.router.navigate(['/planet', id])`
+   - Chemins de cookies: `path=/`
+   - Tests Cypress: `cy.visit('/')`
+
+4. **Pourquoi c'est crucial**:
+   - Les chemins absolus causent des erreurs sur GitHub Pages
+   - Le projet est déployé avec `--base-href /explorateur_media/`
+   - Les chemins absolus empêchent la portabilité du code
+   - Les builds de production échouent avec des chemins absolus
+
+**État actuel**: ✅ Le projet est conforme à 100% (audit complet du 2025-11-19)
+
 ### Développement Angular
 
 1. Utiliser des **standalone components** (pas de NgModule)
