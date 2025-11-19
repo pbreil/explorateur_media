@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
+import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -38,13 +39,14 @@ interface CelestialBody {
   templateUrl: './planet-table.component.html',
   styleUrls: ['./planet-table.component.css'],
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, CheckboxModule, FormsModule, TranslateModule]
+  imports: [CommonModule, TableModule, ButtonModule, CheckboxModule, SelectModule, FormsModule, TranslateModule]
 })
 export class PlanetTableComponent implements OnInit {
 
   celestialBodies: CelestialBody[] = [];
   columns: ColumnConfig[] = [];
   bodyTypeFilter: 'all' | 'planets' | 'satellites' = 'all';
+  bodyTypeOptions: Array<{label: string, value: string}> = [];
 
   private planetColumnDefinitions = [
     { field: 'name', translationKey: 'planetTable.columns.name' },
@@ -81,13 +83,23 @@ export class PlanetTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCelestialBodies();
+    this.initializeBodyTypeOptions();
     this.initializeColumns();
     this.loadColumnPreferences();
 
     // Re-initialize columns when language changes
     this.translate.onLangChange.subscribe(() => {
+      this.initializeBodyTypeOptions();
       this.initializeColumns();
     });
+  }
+
+  private initializeBodyTypeOptions(): void {
+    this.bodyTypeOptions = [
+      { label: this.translate.instant('planetTable.filterAll'), value: 'all' },
+      { label: this.translate.instant('planetTable.filterPlanets'), value: 'planets' },
+      { label: this.translate.instant('planetTable.filterSatellites'), value: 'satellites' }
+    ];
   }
 
   private loadCelestialBodies(): void {

@@ -5,11 +5,12 @@
   [modal]="true"
   [style]="{ width: '450px' }"
   [draggable]="false"
-  [resizable]="false">
+  [resizable]="false"
+  styleClass="custom-dialog">
 
-  <div class="p-4">
-    <div class="mb-4">
-      <label class="block mb-2 font-semibold">{{ 'settings.language' | translate }}</label>
+  <div class="p-6">
+    <div class="mb-6">
+      <label class="block mb-3 font-semibold text-blue-900 text-lg">{{ 'settings.language' | translate }}</label>
       <p-select
         [(ngModel)]="selectedLanguage"
         [options]="languages"
@@ -23,6 +24,12 @@
   </div>
 
   <ng-template pTemplate="footer">
-    <button pButton type="button" [label]="'settings.close' | translate" (click)="close()"></button>
+    <button
+      pButton
+      type="button"
+      [label]="'settings.close' | translate"
+      (click)="close()"
+      class="p-button-outlined">
+    </button>
   </ng-template>
 </p-dialog>
