@@ -6,8 +6,9 @@
         pButton
         type="button"
         icon="pi pi-cog"
-        [label]="'app.settings' | translate"
-        class="p-button-text absolute top-0 right-0"
+        class="p-button-rounded p-button-text absolute top-0 right-0"
+        [pTooltip]="'app.settings' | translate"
+        tooltipPosition="bottom"
         (click)="openSettings()">
       </button>
     </div>
