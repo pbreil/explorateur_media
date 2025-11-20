@@ -1,0 +1,43 @@
+<div class="sidebar-container">
+  <!-- Toggle Button -->
+  <button
+    pButton
+    type="button"
+    icon="pi pi-bars"
+    class="p-button-rounded p-button-text toggle-button"
+    [pTooltip]="'sidebar.menu' | translate"
+    tooltipPosition="right"
+    (click)="toggleSidebar()">
+  </button>
+
+  <!-- Sidebar -->
+  <p-sidebar [(visible)]="sidebarVisible" [modal]="false" [showCloseIcon]="false">
+    <ng-template pTemplate="header">
+      <div class="flex items-center justify-between w-full">
+        <h3 class="text-xl font-bold text-gray-800">{{ 'sidebar.navigation' | translate }}</h3>
+        <div class="flex items-center gap-2">
+          <i [class]="getServerStatusIcon() + ' ' + getServerStatusClass()"></i>
+          <span class="text-sm" [class]="getServerStatusClass()">
+            {{ serverStatus === 'active' ? ('sidebar.serverActive' | translate) :
+               serverStatus === 'inactive' ? ('sidebar.serverInactive' | translate) :
+               ('sidebar.serverChecking' | translate) }}
+          </span>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Menu Items -->
+    <div class="menu-items">
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink]="item.route"
+        routerLinkActive="active-menu-item"
+        [routerLinkActiveOptions]="{exact: item.route === '/'}"
+        class="menu-item"
+        (click)="sidebarVisible = false">
+        <i [class]="item.icon + ' text-xl'"></i>
+        <span class="ml-3">{{ item.label | translate }}</span>
+      </a>
+    </div>
+  </p-sidebar>
+</div>

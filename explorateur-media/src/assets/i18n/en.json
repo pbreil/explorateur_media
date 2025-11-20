@@ -58,5 +58,29 @@
       "discoveryYear": "Discovery",
       "discoverer": "Discoverer"
     }
+  },
+  "sidebar": {
+    "menu": "Menu",
+    "navigation": "Navigation",
+    "planets": "Planets",
+    "settings": "Settings",
+    "serverInfo": "Server Info",
+    "serverActive": "Active",
+    "serverInactive": "Inactive",
+    "serverChecking": "Checking..."
+  },
+  "serverInfo": {
+    "title": "Server Information",
+    "springServer": "Spring Boot Server",
+    "statusUp": "Online",
+    "statusDown": "Offline",
+    "statusChecking": "Checking...",
+    "lastCheck": "Last Check",
+    "responseTime": "Response Time",
+    "endpoint": "Endpoint",
+    "details": "Details",
+    "refresh": "Refresh",
+    "autoRefresh": "Auto-refresh enabled",
+    "autoRefreshDesc": "Server status is checked every 10 seconds"
   }
 }

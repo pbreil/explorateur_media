@@ -1,0 +1,67 @@
+<div class="server-info-container">
+  <h2 class="text-3xl font-bold mb-6 text-gray-800">
+    {{ 'serverInfo.title' | translate }}
+  </h2>
+
+  <p-card class="server-status-card">
+    <ng-template pTemplate="header">
+      <div class="card-header">
+        <i class="pi pi-server text-4xl"></i>
+        <h3 class="text-xl font-semibold">{{ 'serverInfo.springServer' | translate }}</h3>
+      </div>
+    </ng-template>
+
+    <div class="status-content">
+      <!-- Main Status -->
+      <div class="status-badge" [ngClass]="getStatusClass()">
+        <i [class]="getStatusIcon() + ' text-3xl'"></i>
+        <span class="text-2xl font-bold ml-3">{{ getStatusText() | translate }}</span>
+      </div>
+
+      <!-- Details -->
+      <div class="details-grid">
+        <div class="detail-item">
+          <span class="detail-label">{{ 'serverInfo.lastCheck' | translate }}</span>
+          <span class="detail-value">{{ serverInfo.timestamp | date:'medium' }}</span>
+        </div>
+
+        <div class="detail-item" *ngIf="serverInfo.responseTime">
+          <span class="detail-label">{{ 'serverInfo.responseTime' | translate }}</span>
+          <span class="detail-value">{{ serverInfo.responseTime }} ms</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'serverInfo.endpoint' | translate }}</span>
+          <span class="detail-value">http://localhost:8080</span>
+        </div>
+      </div>
+
+      <!-- Additional Details -->
+      <div class="additional-details" *ngIf="serverInfo.details">
+        <h4 class="text-lg font-semibold mb-2">{{ 'serverInfo.details' | translate }}</h4>
+        <pre class="details-json">{{ serverInfo.details | json }}</pre>
+      </div>
+
+      <!-- Refresh Button -->
+      <div class="flex justify-center mt-6">
+        <button
+          pButton
+          type="button"
+          [label]="'serverInfo.refresh' | translate"
+          icon="pi pi-refresh"
+          class="p-button-outlined"
+          (click)="checkServer()">
+        </button>
+      </div>
+    </div>
+  </p-card>
+
+  <!-- Info Box -->
+  <div class="info-box mt-6">
+    <i class="pi pi-info-circle text-blue-500 text-2xl"></i>
+    <div class="ml-3">
+      <p class="text-gray-700">{{ 'serverInfo.autoRefresh' | translate }}</p>
+      <p class="text-sm text-gray-500">{{ 'serverInfo.autoRefreshDesc' | translate }}</p>
+    </div>
+  </div>
+</div>

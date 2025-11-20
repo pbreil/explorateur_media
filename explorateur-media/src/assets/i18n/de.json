@@ -58,5 +58,29 @@
       "discoveryYear": "Entdeckung",
       "discoverer": "Entdecker"
     }
+  },
+  "sidebar": {
+    "menu": "Menü",
+    "navigation": "Navigation",
+    "planets": "Planeten",
+    "settings": "Einstellungen",
+    "serverInfo": "Server-Info",
+    "serverActive": "Aktiv",
+    "serverInactive": "Inaktiv",
+    "serverChecking": "Prüfung..."
+  },
+  "serverInfo": {
+    "title": "Server-Informationen",
+    "springServer": "Spring Boot Server",
+    "statusUp": "Online",
+    "statusDown": "Offline",
+    "statusChecking": "Prüfung...",
+    "lastCheck": "Letzte Überprüfung",
+    "responseTime": "Antwortzeit",
+    "endpoint": "Endpunkt",
+    "details": "Details",
+    "refresh": "Aktualisieren",
+    "autoRefresh": "Automatische Aktualisierung aktiviert",
+    "autoRefreshDesc": "Der Serverstatus wird alle 10 Sekunden überprüft"
   }
 }
