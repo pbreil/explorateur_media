@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -19,13 +19,17 @@ export class AppComponent {
   showSettings = false;
   translationsLoaded = false;
 
-  constructor(public languageService: LanguageService) {
+  constructor(
+    public languageService: LanguageService,
+    private cdr: ChangeDetectorRef
+  ) {
     this.initializeTranslations();
   }
 
   private async initializeTranslations(): Promise<void> {
     await this.languageService.waitForInitialization();
     this.translationsLoaded = true;
+    this.cdr.markForCheck();
   }
 
   openSettings(): void {
