@@ -58,5 +58,29 @@
       "discoveryYear": "Descubrimiento",
       "discoverer": "Descubridor"
     }
+  },
+  "sidebar": {
+    "menu": "Menú",
+    "navigation": "Navegación",
+    "planets": "Planetas",
+    "settings": "Configuración",
+    "serverInfo": "Info Servidor",
+    "serverActive": "Activo",
+    "serverInactive": "Inactivo",
+    "serverChecking": "Verificando..."
+  },
+  "serverInfo": {
+    "title": "Información del Servidor",
+    "springServer": "Servidor Spring Boot",
+    "statusUp": "En Línea",
+    "statusDown": "Fuera de Línea",
+    "statusChecking": "Verificando...",
+    "lastCheck": "Última verificación",
+    "responseTime": "Tiempo de respuesta",
+    "endpoint": "Punto final",
+    "details": "Detalles",
+    "refresh": "Actualizar",
+    "autoRefresh": "Actualización automática activada",
+    "autoRefreshDesc": "El estado del servidor se verifica cada 10 segundos"
   }
 }
