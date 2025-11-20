@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>hello-world</artifactId>
+	<artifactId>media-back</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hello-world</name>
-	<description>Demo project for Spring Boot</description>
+	<name>media-back</name>
+	<description>Backend API for Media Explorer</description>
 	<url/>
 	<licenses>
 		<license/>
