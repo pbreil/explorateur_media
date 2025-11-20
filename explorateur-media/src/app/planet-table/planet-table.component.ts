@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { PlanetService } from '../planet.service';
 import { Planet, Satellite } from '../models/planet.model';
 import { CommonModule } from '@angular/common';
@@ -40,7 +40,8 @@ interface CelestialBody {
   templateUrl: './planet-table.component.html',
   styleUrls: ['./planet-table.component.css'],
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, CheckboxModule, SelectModule, FormsModule, TranslateModule]
+  imports: [CommonModule, TableModule, ButtonModule, CheckboxModule, SelectModule, FormsModule, TranslateModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlanetTableComponent implements OnInit {
 
@@ -80,7 +81,8 @@ export class PlanetTableComponent implements OnInit {
     private planetService: PlanetService,
     private router: Router,
     private translate: TranslateService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -96,6 +98,7 @@ export class PlanetTableComponent implements OnInit {
     this.translate.onLangChange.subscribe(() => {
       this.initializeBodyTypeOptions();
       this.initializeColumns();
+      this.cdr.markForCheck();
     });
   }
 
@@ -110,6 +113,9 @@ export class PlanetTableComponent implements OnInit {
   private loadCelestialBodies(): void {
     const planets = this.planetService.getPlanets();
     const satellites = this.planetService.getSatellites();
+
+    // Create a Map for O(1) planet lookup instead of O(n) find
+    const planetMap = new Map(planets.map(p => [p.id, p]));
 
     // Convert planets to CelestialBody
     const planetBodies: CelestialBody[] = planets.map(planet => ({
@@ -128,9 +134,9 @@ export class PlanetTableComponent implements OnInit {
       discoverer: planet.discoverer
     }));
 
-    // Convert satellites to CelestialBody
+    // Convert satellites to CelestialBody - optimized with Map lookup
     const satelliteBodies: CelestialBody[] = satellites.map(satellite => {
-      const planet = planets.find(p => p.id === satellite.planetId);
+      const planet = planetMap.get(satellite.planetId);
       return {
         id: satellite.id,
         name: satellite.name,

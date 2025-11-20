@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -17,7 +17,8 @@ interface Language {
   standalone: true,
   imports: [CommonModule, DialogModule, ButtonModule, Select, FormsModule, TranslateModule],
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  styleUrls: ['./settings.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsComponent {
   @Input() visible: boolean = false;

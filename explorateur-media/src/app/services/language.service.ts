@@ -66,18 +66,33 @@ export class LanguageService {
     return this.initialized;
   }
 
+  private initPromise?: Promise<void>;
+
   async waitForInitialization(): Promise<void> {
     if (this.initialized) return;
 
-    // Wait up to 5 seconds for initialization
-    const maxWait = 5000;
-    const interval = 100;
-    let waited = 0;
-
-    while (!this.initialized && waited < maxWait) {
-      await new Promise(resolve => setTimeout(resolve, interval));
-      waited += interval;
+    // If already initializing, return the existing promise
+    if (this.initPromise) {
+      return this.initPromise;
     }
+
+    // Create a promise that resolves when initialized
+    this.initPromise = new Promise((resolve) => {
+      const checkInterval = setInterval(() => {
+        if (this.initialized) {
+          clearInterval(checkInterval);
+          resolve();
+        }
+      }, 10);
+
+      // Timeout after 5 seconds
+      setTimeout(() => {
+        clearInterval(checkInterval);
+        resolve();
+      }, 5000);
+    });
+
+    return this.initPromise;
   }
 
   private saveLanguageToCookie(language: string): void {
