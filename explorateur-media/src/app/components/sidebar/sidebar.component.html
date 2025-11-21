@@ -11,7 +11,7 @@
   </button>
 
   <!-- Sidebar -->
-  <p-sidebar [(visible)]="sidebarVisible" [modal]="false" [showCloseIcon]="false">
+  <p-drawer [(visible)]="sidebarVisible" [modal]="false" [showCloseIcon]="false">
     <ng-template pTemplate="header">
       <div class="flex items-center justify-between w-full">
         <h3 class="text-xl font-bold text-gray-800">{{ 'sidebar.navigation' | translate }}</h3>
@@ -39,5 +39,5 @@
         <span class="ml-3">{{ item.label | translate }}</span>
       </a>
     </div>
-  </p-sidebar>
+  </p-drawer>
 </div>
