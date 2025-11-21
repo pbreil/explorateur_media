@@ -96,11 +96,11 @@ export class ServerInfoComponent implements OnInit, OnDestroy {
   getStatusClass(): string {
     switch (this.serverInfo.status) {
       case 'UP':
-        return 'status-up';
+        return 'bg-gradient-to-br from-green-500 to-emerald-600 text-white';
       case 'DOWN':
-        return 'status-down';
+        return 'bg-gradient-to-br from-red-500 to-red-600 text-white';
       default:
-        return 'status-checking';
+        return 'bg-gradient-to-br from-gray-500 to-gray-600 text-white';
     }
   }
 
