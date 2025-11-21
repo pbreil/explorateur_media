@@ -56,27 +56,27 @@
   </p-card>
 
   <p-card [header]="'planetDetails.satellites' | translate" class="mb-4" *ngIf="satellites.length > 0">
-    <p-table [value]="satellites" [scrollable]="true">
+    <p-table [value]="satellites" [scrollable]="true" styleClass="p-datatable-striped p-datatable-gridlines">
       <ng-template pTemplate="header">
-        <tr>
-          <th>{{ 'planetDetails.satelliteTable.name' | translate }}</th>
-          <th>{{ 'planetDetails.satelliteTable.diameter' | translate }}</th>
-          <th>{{ 'planetDetails.satelliteTable.distanceFromPlanet' | translate }}</th>
-          <th>{{ 'planetDetails.satelliteTable.orbitalPeriod' | translate }}</th>
-          <th>{{ 'planetDetails.satelliteTable.mass' | translate }}</th>
-          <th>{{ 'planetDetails.satelliteTable.discoveryYear' | translate }}</th>
-          <th>{{ 'planetDetails.satelliteTable.discoverer' | translate }}</th>
+        <tr class="bg-blue-600 text-white">
+          <th class="text-white bg-blue-600">{{ 'planetDetails.satelliteTable.name' | translate }}</th>
+          <th class="text-white bg-blue-600">{{ 'planetDetails.satelliteTable.diameter' | translate }}</th>
+          <th class="text-white bg-blue-600">{{ 'planetDetails.satelliteTable.distanceFromPlanet' | translate }}</th>
+          <th class="text-white bg-blue-600">{{ 'planetDetails.satelliteTable.orbitalPeriod' | translate }}</th>
+          <th class="text-white bg-blue-600">{{ 'planetDetails.satelliteTable.mass' | translate }}</th>
+          <th class="text-white bg-blue-600">{{ 'planetDetails.satelliteTable.discoveryYear' | translate }}</th>
+          <th class="text-white bg-blue-600">{{ 'planetDetails.satelliteTable.discoverer' | translate }}</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-satellite>
-        <tr>
-          <td>{{satellite.name}}</td>
-          <td>{{satellite.diameter}}</td>
-          <td>{{satellite.distanceFromPlanet}}</td>
-          <td>{{satellite.orbitalPeriod}}</td>
-          <td>{{satellite.mass}}</td>
-          <td>{{satellite.discoveryYear}}</td>
-          <td>{{satellite.discoverer}}</td>
+        <tr class="bg-white">
+          <td class="text-gray-900 bg-white">{{satellite.name}}</td>
+          <td class="text-gray-900 bg-white">{{satellite.diameter}}</td>
+          <td class="text-gray-900 bg-white">{{satellite.distanceFromPlanet}}</td>
+          <td class="text-gray-900 bg-white">{{satellite.orbitalPeriod}}</td>
+          <td class="text-gray-900 bg-white">{{satellite.mass}}</td>
+          <td class="text-gray-900 bg-white">{{satellite.discoveryYear}}</td>
+          <td class="text-gray-900 bg-white">{{satellite.discoverer}}</td>
         </tr>
       </ng-template>
     </p-table>

@@ -60,7 +60,7 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr class="bg-blue-600 text-white">
-            <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.field" class="text-white">
+            <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.field" class="text-white bg-blue-600">
                 {{ col.header }}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
@@ -70,8 +70,8 @@
         <tr
             (click)="goToDetails(body)"
             [style.cursor]="body.type === 'planet' ? 'pointer' : 'default'"
-            [class]="body.type === 'planet' ? 'hover:bg-blue-50 transition-colors' : ''">
-            <td *ngFor="let col of visibleColumns" class="text-gray-800">
+            [class]="body.type === 'planet' ? 'hover:bg-blue-100 transition-colors bg-white' : 'bg-white'">
+            <td *ngFor="let col of visibleColumns" class="text-gray-900 bg-white">
                 {{ getFieldValue(body, col.field) }}
             </td>
         </tr>
