@@ -1,53 +1,67 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
-import { TooltipModule } from 'primeng/tooltip';
+import { Router, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MenuModule } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule, TranslateModule, ButtonModule, DrawerModule, TooltipModule],
+  imports: [CommonModule, RouterModule, TranslateModule, MenuModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent implements OnInit {
-  sidebarVisible = false;
   serverStatus: 'active' | 'inactive' | 'checking' = 'checking';
+  menuItems: MenuItem[] = [];
 
-  menuItems = [
-    {
-      label: 'sidebar.planets',
-      icon: 'pi pi-globe',
-      route: '/'
-    },
-    {
-      label: 'sidebar.settings',
-      icon: 'pi pi-cog',
-      route: '/settings'
-    },
-    {
-      label: 'sidebar.serverInfo',
-      icon: 'pi pi-server',
-      route: '/server-info'
-    }
-  ];
-
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private translateService: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.checkServerStatus();
     // Check server status every 30 seconds
     setInterval(() => this.checkServerStatus(), 30000);
+
+    // Initialize menu items with translations
+    this.initializeMenuItems();
+
+    // Re-initialize menu items when language changes
+    this.translateService.onLangChange.subscribe(() => {
+      this.initializeMenuItems();
+    });
   }
 
-  toggleSidebar(): void {
-    this.sidebarVisible = !this.sidebarVisible;
+  private initializeMenuItems(): void {
+    this.menuItems = [
+      {
+        label: this.translateService.instant('sidebar.planets'),
+        icon: 'pi pi-globe',
+        command: () => this.router.navigate(['/']),
+        styleClass: 'menu-item-custom'
+      },
+      {
+        label: this.translateService.instant('sidebar.settings'),
+        icon: 'pi pi-cog',
+        command: () => this.router.navigate(['/settings']),
+        styleClass: 'menu-item-custom'
+      },
+      {
+        label: this.translateService.instant('sidebar.serverInfo'),
+        icon: 'pi pi-server',
+        command: () => this.router.navigate(['/server-info']),
+        styleClass: 'menu-item-custom'
+      }
+    ];
+    this.cdr.markForCheck();
   }
 
   checkServerStatus(): void {
