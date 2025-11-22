@@ -226,9 +226,9 @@ export class PlanetTableComponent implements OnInit {
   goToDetails(body: CelestialBody): void {
     if (body.type === 'planet') {
       this.router.navigate(['/planet', body.id]);
+    } else if (body.type === 'satellite') {
+      this.router.navigate(['/satellite', body.id]);
     }
-    // For satellites, we could navigate to the planet details page
-    // or do nothing for now
   }
 
   getFieldValue(body: CelestialBody, field: string): any {

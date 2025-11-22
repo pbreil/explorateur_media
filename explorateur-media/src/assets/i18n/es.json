@@ -82,5 +82,25 @@
     "refresh": "Actualizar",
     "autoRefresh": "Actualización automática activada",
     "autoRefreshDesc": "El estado del servidor se verifica cada 10 segundos"
+  },
+  "celestialBodyDetails": {
+    "satelliteOf": "Satélite de",
+    "generalInformation": "Información general",
+    "physicalCharacteristics": "Características físicas",
+    "diameter": "Diámetro:",
+    "distanceFromSun": "Distancia del Sol:",
+    "distanceFromPlanet": "Distancia del planeta:",
+    "orbitalPeriod": "Período orbital:",
+    "numberOfMoons": "Número de lunas:",
+    "mass": "Masa:",
+    "discoveryYear": "Año de descubrimiento:",
+    "discoverer": "Descubridor:",
+    "surfaceGravity": "Gravedad superficial:",
+    "averageTemperature": "Temperatura promedio:",
+    "atmosphericPressure": "Presión atmosférica:"
+  },
+  "satelliteDetails": {
+    "backToList": "Volver a la lista",
+    "viewPlanet": "Ver planeta"
   }
 }

@@ -9,16 +9,17 @@
             class="p-button-outlined">
         </button>
 
-        <p-select
-            [(ngModel)]="bodyTypeFilter"
-            [options]="bodyTypeOptions"
-            optionLabel="label"
-            optionValue="value"
-            (onChange)="onBodyTypeFilterChange()"
-            [placeholder]="'planetTable.filterAll' | translate"
-            appendTo="body"
-            styleClass="w-64">
-        </p-select>
+        <div class="relative z-50">
+            <p-select
+                [(ngModel)]="bodyTypeFilter"
+                [options]="bodyTypeOptions"
+                optionLabel="label"
+                optionValue="value"
+                (onChange)="onBodyTypeFilterChange()"
+                [placeholder]="'planetTable.filterAll' | translate"
+                styleClass="w-64">
+            </p-select>
+        </div>
     </div>
 
     <div *ngIf="showFilters" class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-3">
@@ -69,8 +70,8 @@
     <ng-template pTemplate="body" let-body>
         <tr
             (click)="goToDetails(body)"
-            [style.cursor]="body.type === 'planet' ? 'pointer' : 'default'"
-            [class]="body.type === 'planet' ? 'hover:bg-blue-100 transition-colors bg-white' : 'bg-white'">
+            class="bg-white hover:bg-blue-100 cursor-pointer transition-colors"
+            [attr.data-cy]="body.type === 'satellite' ? 'satellite-row' : 'planet-row'">
             <td *ngFor="let col of visibleColumns" class="text-gray-900 bg-white">
                 {{ getFieldValue(body, col.field) }}
             </td>

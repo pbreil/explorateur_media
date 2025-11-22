@@ -1,0 +1,13 @@
+<div *ngIf="satellite">
+  <div class="flex justify-between mb-4">
+    <button pButton type="button" (click)="goBack()" class="p-button-text">
+      {{ 'satelliteDetails.backToList' | translate }}
+    </button>
+    <button pButton type="button" (click)="goToPlanet()" class="p-button-outlined" *ngIf="planetName">
+      {{ 'satelliteDetails.viewPlanet' | translate }}: {{ planetName }}
+    </button>
+  </div>
+
+  <!-- Use the shared component for satellite details -->
+  <app-celestial-body-details [body]="satellite" [type]="'satellite'" [planetName]="planetName"></app-celestial-body-details>
+</div>

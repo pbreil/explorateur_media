@@ -333,4 +333,8 @@ export class PlanetService {
   getSatellitesForPlanet(planetId: string): Satellite[] {
     return this.getSatellites().filter(satellite => satellite.planetId === planetId);
   }
+
+  getSatellite(id: string): Satellite | undefined {
+    return this.getSatellites().find(satellite => satellite.id === id);
+  }
 }
