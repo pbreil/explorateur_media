@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { HttpClient } from '@angular/common/http';
 import { catchError, of, interval, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 interface ServerInfo {
   status: 'UP' | 'DOWN' | 'CHECKING';
@@ -29,11 +30,22 @@ export class ServerInfoComponent implements OnInit, OnDestroy {
   };
 
   private subscription?: Subscription;
-  private readonly serverUrl = 'http://localhost:8080';
+  private readonly serverUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    // Skip health check if no API URL is configured (production without backend)
+    if (!this.serverUrl) {
+      this.serverInfo = {
+        status: 'DOWN',
+        timestamp: new Date(),
+        details: { error: 'Backend API URL not configured' }
+      };
+      this.cdr.markForCheck();
+      return;
+    }
+
     this.checkServer();
     // Auto-refresh every 10 seconds
     this.subscription = interval(10000)
