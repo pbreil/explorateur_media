@@ -1,0 +1,53 @@
+name: Deploy to DigitalOcean App Platform
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'media-back/**'
+      - 'docker-compose.yml'
+      - '.github/workflows/deploy-digitalocean.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install doctl (DigitalOcean CLI)
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Build and push image to DigitalOcean Container Registry
+        run: |
+          doctl registry login
+          docker build -t registry.digitalocean.com/${{ secrets.DO_REGISTRY_NAME }}/spring-app:latest ./media-back
+          docker push registry.digitalocean.com/${{ secrets.DO_REGISTRY_NAME }}/spring-app:latest
+
+      - name: Deploy to App Platform
+        run: |
+          doctl apps create-deployment ${{ secrets.DO_APP_ID }} --wait
+
+      - name: Deployment complete
+        run: |
+          echo "✅ Deployment to DigitalOcean completed!"
+          echo "🚀 Your app is being deployed"
+
+# Instructions pour configurer DigitalOcean:
+#
+# 1. Créer un compte sur https://www.digitalocean.com
+# 2. Créer un Container Registry
+# 3. Créer une App depuis le Container Registry
+# 4. Créer une Managed Database MySQL
+# 5. Connecter la database à votre app
+# 6. Générer un API token: Account > API > Generate New Token
+#
+# Secrets GitHub à configurer:
+# - DIGITALOCEAN_ACCESS_TOKEN: Votre token d'accès DigitalOcean
+# - DO_REGISTRY_NAME: Nom de votre container registry
+# - DO_APP_ID: ID de votre application (trouvable dans l'URL de l'app)

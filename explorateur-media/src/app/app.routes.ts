@@ -18,5 +18,9 @@ export const routes: Routes = [
   {
     path: 'server-info',
     loadComponent: () => import('./components/server-info/server-info.component').then(m => m.ServerInfoComponent)
+  },
+  {
+    path: 'pronofoot',
+    loadComponent: () => import('./pages/pronofoot/pronofoot.component').then(m => m.PronofootComponent)
   }
 ];

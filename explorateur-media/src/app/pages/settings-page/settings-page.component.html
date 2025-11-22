@@ -37,4 +37,26 @@
       <p class="text-xs sm:text-sm text-gray-500 mt-1">{{ 'settings.selectLanguage' | translate }}</p>
     </div>
   </div>
+
+  <p-card class="shadow-md mt-6">
+    <ng-template pTemplate="header">
+      <div class="flex items-center gap-4 p-4 sm:p-6 bg-gradient-to-br from-green-600 via-emerald-700 to-teal-700 text-white">
+        <i class="pi pi-trophy text-3xl sm:text-4xl"></i>
+        <h3 class="text-lg sm:text-xl font-semibold">Mode Foot</h3>
+      </div>
+    </ng-template>
+
+    <div class="p-4 sm:p-6">
+      <p class="text-sm sm:text-base text-gray-700 mb-4">
+        Accédez au classement de la Ligue 1 et suivez vos équipes favorites !
+      </p>
+      <p-button
+        label="Ouvrir Pronofoot"
+        icon="pi pi-external-link"
+        routerLink="/pronofoot"
+        severity="success"
+        styleClass="w-full sm:w-auto">
+      </p-button>
+    </div>
+  </p-card>
 </div>

@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
 import { CardModule } from 'primeng/card';
+import { RouterModule } from '@angular/router';
 
 interface Language {
   code: string;
@@ -15,7 +16,7 @@ interface Language {
 @Component({
   selector: 'app-settings-page',
   standalone: true,
-  imports: [CommonModule, ButtonModule, Select, FormsModule, TranslateModule, CardModule],
+  imports: [CommonModule, ButtonModule, Select, FormsModule, TranslateModule, CardModule, RouterModule],
   templateUrl: './settings-page.component.html',
   styleUrls: ['./settings-page.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush

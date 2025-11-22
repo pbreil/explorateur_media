@@ -1,0 +1,45 @@
+name: Deploy to Railway
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'media-back/**'
+      - 'docker-compose.yml'
+      - '.github/workflows/deploy-railway.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Railway CLI
+        run: |
+          curl -fsSL https://railway.app/install.sh | sh
+          echo "$HOME/.railway/bin" >> $GITHUB_PATH
+
+      - name: Deploy to Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          railway up --detach
+
+      - name: Show deployment URL
+        run: |
+          echo "✅ Deployment successful!"
+          echo "🚀 Your application is being deployed to Railway"
+
+# Instructions pour configurer Railway:
+# 1. Créer un compte sur https://railway.app
+# 2. Créer un nouveau projet
+# 3. Aller dans Settings > Tokens
+# 4. Générer un token
+# 5. Ajouter le token dans GitHub: Settings > Secrets > Actions > New repository secret
+#    Nom: RAILWAY_TOKEN
+#    Valeur: <votre-token>
+# 6. Railway détectera automatiquement le Dockerfile et docker-compose.yml
