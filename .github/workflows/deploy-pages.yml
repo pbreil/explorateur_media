@@ -1,4 +1,4 @@
-name: Build & Deploy Angular to GitHub Pages
+name: Build & Deploy Angular + Spring Boot to GitHub Pages
 
 on:
   push:
@@ -18,8 +18,13 @@ concurrency:
 
 env:
   PROJECT_NAME: explorateur-media
+  SPRINGBOOT_NAME: media-back
   BASE_PATH: /explorateur_media/
   NODE_VERSION: 22
+  JAVA_VERSION: 21
+  # Backend API URL for production - Update this with your deployed backend URL
+  # Leave empty if no backend is available
+  BACKEND_API_URL: ''
 
 jobs:
   build-angular:
@@ -43,6 +48,16 @@ jobs:
             npm ci
           else
             npm install --no-audit --no-fund
+          fi
+
+      - name: Configure backend API URL
+        working-directory: ${{ env.PROJECT_NAME }}
+        run: |
+          if [ -n "${{ env.BACKEND_API_URL }}" ]; then
+            echo "Configuring backend API URL: ${{ env.BACKEND_API_URL }}"
+            sed -i "s|apiUrl: ''|apiUrl: '${{ env.BACKEND_API_URL }}'|g" src/environments/environment.prod.ts
+          else
+            echo "No backend API URL configured - app will run without backend"
           fi
 
       - name: Build Angular (${{ env.PROJECT_NAME }}) with base-href
@@ -73,10 +88,46 @@ jobs:
           name: angular-build
           path: ${{ steps.resolve.outputs.out }}
 
+  build-springboot:
+    name: Build Spring Boot
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Make gradlew executable
+        working-directory: ${{ env.SPRINGBOOT_NAME }}
+        run: chmod +x gradlew
+
+      - name: Run Unit Tests
+        working-directory: ${{ env.SPRINGBOOT_NAME }}
+        run: ./gradlew test --tests '*UnitTest'
+
+      - name: Run Integration Tests
+        working-directory: ${{ env.SPRINGBOOT_NAME }}
+        run: ./gradlew test --tests '*IntegrationTest'
+
+      - name: Build with Gradle
+        working-directory: ${{ env.SPRINGBOOT_NAME }}
+        run: ./gradlew clean build
+
+      - name: Upload Spring Boot artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: springboot-build
+          path: ${{ env.SPRINGBOOT_NAME }}/build/libs/*.jar
+
   deploy:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
-    needs: [build-angular]
+    needs: [build-angular, build-springboot]
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
