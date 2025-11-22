@@ -7,6 +7,10 @@
     "title": "Paramètres",
     "language": "Langue",
     "selectLanguage": "Sélectionner la langue",
+    "accelerationUnit": "Unité d'accélération",
+    "selectAccelerationUnit": "Sélectionner l'unité d'accélération",
+    "distanceUnit": "Unité de distance",
+    "selectDistanceUnit": "Sélectionner l'unité de distance",
     "close": "Fermer",
     "save": "Enregistrer"
   },

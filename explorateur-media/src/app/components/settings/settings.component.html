@@ -3,12 +3,13 @@
   [(visible)]="visible"
   (onHide)="onHide()"
   [modal]="true"
-  [style]="{ width: '450px' }"
+  [style]="{ width: '550px' }"
   [draggable]="false"
   [resizable]="false"
   styleClass="custom-dialog">
 
   <div class="p-6">
+    <!-- Language Selection -->
     <div class="mb-6">
       <label class="block mb-3 font-semibold text-blue-900 text-lg">{{ 'settings.language' | translate }}</label>
       <p-select
@@ -18,6 +19,36 @@
         optionValue="code"
         [placeholder]="'settings.selectLanguage' | translate"
         (onChange)="onLanguageChange()"
+        appendTo="body"
+        styleClass="w-full">
+      </p-select>
+    </div>
+
+    <!-- Acceleration Unit Selection -->
+    <div class="mb-6">
+      <label class="block mb-3 font-semibold text-blue-900 text-lg">{{ 'settings.accelerationUnit' | translate }}</label>
+      <p-select
+        [(ngModel)]="selectedAccelerationUnit"
+        [options]="accelerationUnits"
+        optionLabel="label"
+        optionValue="value"
+        [placeholder]="'settings.selectAccelerationUnit' | translate"
+        (onChange)="onAccelerationUnitChange()"
+        appendTo="body"
+        styleClass="w-full">
+      </p-select>
+    </div>
+
+    <!-- Distance Unit Selection -->
+    <div class="mb-6">
+      <label class="block mb-3 font-semibold text-blue-900 text-lg">{{ 'settings.distanceUnit' | translate }}</label>
+      <p-select
+        [(ngModel)]="selectedDistanceUnit"
+        [options]="distanceUnits"
+        optionLabel="label"
+        optionValue="value"
+        [placeholder]="'settings.selectDistanceUnit' | translate"
+        (onChange)="onDistanceUnitChange()"
         appendTo="body"
         styleClass="w-full">
       </p-select>
