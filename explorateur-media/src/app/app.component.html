@@ -2,13 +2,13 @@
   <!-- Sidebar Navigation -->
   <app-sidebar *ngIf="translationsLoaded"></app-sidebar>
 
-  <!-- Main Content with margin to account for fixed sidebar -->
-  <div *ngIf="translationsLoaded" class="main-content">
-    <div class="container mx-auto px-4 py-8">
-      <h1 class="text-5xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent mb-8">
+  <!-- Main Content - Responsive with sidebar -->
+  <div *ngIf="translationsLoaded" class="lg:ml-64 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-center bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent mb-8">
         {{ 'app.title' | translate }}
       </h1>
-      <div class="bg-white rounded-xl shadow-2xl p-6">
+      <div class="bg-white rounded-xl shadow-2xl p-4 sm:p-6">
         <router-outlet></router-outlet>
       </div>
     </div>

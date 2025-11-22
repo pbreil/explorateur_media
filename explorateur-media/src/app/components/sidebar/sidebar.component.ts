@@ -18,6 +18,7 @@ import { catchError, of } from 'rxjs';
 export class SidebarComponent implements OnInit {
   serverStatus: 'active' | 'inactive' | 'checking' = 'checking';
   menuItems: MenuItem[] = [];
+  isSidebarOpen = false;
 
   constructor(
     private http: HttpClient,
@@ -89,11 +90,21 @@ export class SidebarComponent implements OnInit {
   getServerStatusClass(): string {
     switch (this.serverStatus) {
       case 'active':
-        return 'text-green-600';
+        return 'text-green-400';
       case 'inactive':
-        return 'text-red-600';
+        return 'text-red-400';
       default:
-        return 'text-gray-600';
+        return 'text-gray-300';
     }
+  }
+
+  toggleSidebar(): void {
+    this.isSidebarOpen = !this.isSidebarOpen;
+    this.cdr.markForCheck();
+  }
+
+  closeSidebar(): void {
+    this.isSidebarOpen = false;
+    this.cdr.markForCheck();
   }
 }
