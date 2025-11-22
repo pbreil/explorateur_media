@@ -1,0 +1,41 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'media-back/**'
+      - 'docker-compose.yml'
+      - '.github/workflows/deploy-render.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Trigger Render Deploy Hook
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl -X POST "$RENDER_DEPLOY_HOOK_URL"
+
+      - name: Deployment triggered
+        run: |
+          echo "✅ Deployment hook triggered!"
+          echo "🚀 Check your Render dashboard for deployment status"
+
+# Instructions pour configurer Render:
+# 1. Créer un compte sur https://render.com
+# 2. Créer un nouveau Web Service depuis votre repository GitHub
+# 3. Sélectionner "Docker" comme environnement
+# 4. Configurer les variables d'environnement (DB_HOST, DB_NAME, etc.)
+# 5. Créer une base de données MySQL depuis Render
+# 6. Dans Settings du service, copier le "Deploy Hook URL"
+# 7. Ajouter dans GitHub: Settings > Secrets > Actions > New repository secret
+#    Nom: RENDER_DEPLOY_HOOK_URL
+#    Valeur: <votre-deploy-hook-url>
