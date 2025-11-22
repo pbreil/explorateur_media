@@ -20,8 +20,8 @@ env:
   PROJECT_NAME: explorateur-media
   SPRINGBOOT_NAME: media-back
   BASE_PATH: /explorateur_media/
-  NODE_VERSION: 20
-  JAVA_VERSION: 17
+  NODE_VERSION: 22
+  JAVA_VERSION: 25
 
 jobs:
   build-angular:
