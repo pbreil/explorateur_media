@@ -1,60 +1,14 @@
 <div *ngIf="planet">
-  <div class="flex justify-content-end mb-4">
-    <button pButton type="button" (click)="goBack()">{{ 'planetDetails.backToList' | translate }}</button>
+  <div class="flex justify-end mb-4">
+    <button pButton type="button" (click)="goBack()" class="p-button-text">
+      {{ 'planetDetails.backToList' | translate }}
+    </button>
   </div>
 
-  <h2 class="text-3xl font-bold mb-4">{{planet.name}}</h2>
+  <!-- Use the shared component for planet details -->
+  <app-celestial-body-details [body]="planet" [type]="'planet'"></app-celestial-body-details>
 
-  <p-card [header]="'planetDetails.generalInformation' | translate" class="mb-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <p class="font-bold mb-1">{{ 'planetDetails.diameter' | translate }}</p>
-        <p class="text-lg">{{planet.diameter}}</p>
-      </div>
-      <div>
-        <p class="font-bold mb-1">{{ 'planetDetails.distanceFromSun' | translate }}</p>
-        <p class="text-lg">{{planet.distanceFromSun}}</p>
-      </div>
-      <div>
-        <p class="font-bold mb-1">{{ 'planetDetails.orbitalPeriod' | translate }}</p>
-        <p class="text-lg">{{planet.orbitalPeriod}}</p>
-      </div>
-      <div>
-        <p class="font-bold mb-1">{{ 'planetDetails.numberOfMoons' | translate }}</p>
-        <p class="text-lg">{{planet.numberOfMoons}}</p>
-      </div>
-      <div>
-        <p class="font-bold mb-1">{{ 'planetDetails.mass' | translate }}</p>
-        <p class="text-lg">{{planet.mass}}</p>
-      </div>
-      <div>
-        <p class="font-bold mb-1">{{ 'planetDetails.discoveryYear' | translate }}</p>
-        <p class="text-lg">{{planet.discoveryYear}}</p>
-      </div>
-      <div>
-        <p class="font-bold mb-1">{{ 'planetDetails.discoverer' | translate }}</p>
-        <p class="text-lg">{{planet.discoverer}}</p>
-      </div>
-    </div>
-  </p-card>
-
-  <p-card [header]="'planetDetails.physicalCharacteristics' | translate" class="mb-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <p class="font-bold mb-1">{{ 'planetDetails.surfaceGravity' | translate }}</p>
-        <p class="text-lg">{{planet.surfaceGravity}}</p>
-      </div>
-      <div>
-        <p class="font-bold mb-1">{{ 'planetDetails.averageTemperature' | translate }}</p>
-        <p class="text-lg">{{planet.averageTemperature}}</p>
-      </div>
-      <div>
-        <p class="font-bold mb-1">{{ 'planetDetails.atmosphericPressure' | translate }}</p>
-        <p class="text-lg">{{planet.atmosphericPressure}}</p>
-      </div>
-    </div>
-  </p-card>
-
+  <!-- Satellites Table -->
   <p-card [header]="'planetDetails.satellites' | translate" class="mb-4" *ngIf="satellites.length > 0">
     <p-table [value]="satellites" [scrollable]="true" styleClass="p-datatable-striped p-datatable-gridlines">
       <ng-template pTemplate="header">
@@ -69,7 +23,10 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-satellite>
-        <tr class="bg-white">
+        <tr
+          (click)="goToSatelliteDetails(satellite)"
+          class="bg-white hover:bg-blue-100 cursor-pointer transition-colors"
+          data-cy="satellite-row">
           <td class="text-gray-900 bg-white">{{satellite.name}}</td>
           <td class="text-gray-900 bg-white">{{satellite.diameter}}</td>
           <td class="text-gray-900 bg-white">{{satellite.distanceFromPlanet}}</td>

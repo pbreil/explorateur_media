@@ -148,6 +148,88 @@ Le fichier `cypress/e2e/i18n.cy.ts` contient des tests exhaustifs:
 
 ## Bonnes pratiques à respecter
 
+### Tests E2E avec Cypress
+
+**RÈGLE CRITIQUE**: Chaque nouvelle fonctionnalité ou modification doit être accompagnée de tests Cypress.
+
+1. **TOUJOURS** créer des tests Cypress pour :
+   - Les nouvelles fonctionnalités UI
+   - Les modifications de comportement
+   - Les corrections de bugs visuels
+   - Les interactions utilisateur (clics, navigation, formulaires)
+
+2. **Structure des tests** :
+   ```typescript
+   describe('Nom de la fonctionnalité', () => {
+     beforeEach(() => {
+       cy.visit('/');
+       cy.waitForTranslations();
+     });
+
+     it('devrait faire quelque chose', () => {
+       // Test
+     });
+   });
+   ```
+
+3. **Utiliser les attributs data-cy** pour les sélecteurs :
+   ```html
+   <button data-cy="submit-button">Envoyer</button>
+   ```
+   ```typescript
+   cy.get('[data-cy="submit-button"]').click();
+   ```
+
+4. **Tester tous les états** :
+   - État initial
+   - État après interaction
+   - États d'erreur
+   - États de chargement
+
+### Styling avec Tailwind CSS
+
+**RÈGLE CRITIQUE**: Utiliser UNIQUEMENT Tailwind CSS pour le styling. N'utiliser du CSS custom que si c'est absolument impossible avec Tailwind.
+
+1. **TOUJOURS** utiliser les classes Tailwind :
+   ```html
+   <!-- ✅ CORRECT -->
+   <div class="flex gap-3 mb-3 flex-wrap items-center">
+     <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+       Bouton
+     </button>
+   </div>
+
+   <!-- ❌ INCORRECT -->
+   <div class="custom-container">
+     <button class="custom-button">Bouton</button>
+   </div>
+   ```
+
+2. **Classes Tailwind couramment utilisées** :
+   - Layout: `flex`, `grid`, `gap-X`, `items-center`, `justify-between`
+   - Spacing: `p-X`, `m-X`, `px-X`, `py-X`, `mb-X`, `mt-X`
+   - Couleurs: `bg-blue-600`, `text-white`, `text-gray-900`, `border-blue-200`
+   - Responsive: `md:grid-cols-2`, `sm:text-lg`
+   - Interactions: `hover:bg-blue-100`, `cursor-pointer`, `transition-colors`
+   - Z-index: `z-50`, `z-40`, `z-10` (pour les dropdowns et overlays)
+
+3. **Responsive Design** :
+   ```html
+   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+     <!-- Contenu -->
+   </div>
+   ```
+
+4. **JAMAIS de CSS custom sauf** :
+   - Animations très spécifiques non supportées par Tailwind
+   - Styles requis par des librairies tierces (PrimeNG)
+   - Cas extrêmement rares où Tailwind ne suffit pas
+
+5. **Si CSS custom est nécessaire** :
+   - Documenter pourquoi Tailwind ne peut pas être utilisé
+   - Garder le CSS au minimum
+   - Préférer les utilitaires Tailwind personnalisés dans tailwind.config.js
+
 ### Internationalisation
 
 1. **TOUJOURS** utiliser le pipe `translate` dans les templates:

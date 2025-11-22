@@ -8,8 +8,12 @@ export const routes: Routes = [
     loadComponent: () => import('./planet-details/planet-details.component').then(m => m.PlanetDetailsComponent)
   },
   {
+    path: 'satellite/:id',
+    loadComponent: () => import('./satellite-details/satellite-details.component').then(m => m.SatelliteDetailsComponent)
+  },
+  {
     path: 'settings',
-    loadComponent: () => import('./components/settings/settings.component').then(m => m.SettingsComponent)
+    loadComponent: () => import('./pages/settings-page/settings-page.component').then(m => m.SettingsPageComponent)
   },
   {
     path: 'server-info',
