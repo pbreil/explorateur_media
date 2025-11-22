@@ -1,4 +1,4 @@
-name: Build & Deploy Angular + Spring Boot to GitHub Pages
+name: Build & Deploy Angular to GitHub Pages
 
 on:
   push:
@@ -18,10 +18,8 @@ concurrency:
 
 env:
   PROJECT_NAME: explorateur-media
-  SPRINGBOOT_NAME: media-back
   BASE_PATH: /explorateur_media/
   NODE_VERSION: 22
-  JAVA_VERSION: 21
 
 jobs:
   build-angular:
@@ -75,46 +73,10 @@ jobs:
           name: angular-build
           path: ${{ steps.resolve.outputs.out }}
 
-  build-springboot:
-    name: Build Spring Boot
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up JDK ${{ env.JAVA_VERSION }}
-        uses: actions/setup-java@v4
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
-          cache: 'gradle'
-
-      - name: Make gradlew executable
-        working-directory: ${{ env.SPRINGBOOT_NAME }}
-        run: chmod +x gradlew
-
-      - name: Run Unit Tests
-        working-directory: ${{ env.SPRINGBOOT_NAME }}
-        run: ./gradlew test --tests '*UnitTest'
-
-      - name: Run Integration Tests
-        working-directory: ${{ env.SPRINGBOOT_NAME }}
-        run: ./gradlew test --tests '*IntegrationTest'
-
-      - name: Build with Gradle
-        working-directory: ${{ env.SPRINGBOOT_NAME }}
-        run: ./gradlew clean build
-
-      - name: Upload Spring Boot artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: springboot-build
-          path: ${{ env.SPRINGBOOT_NAME }}/build/libs/*.jar
-
   deploy:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
-    needs: [build-angular, build-springboot]
+    needs: [build-angular]
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -124,12 +86,6 @@ jobs:
         with:
           name: angular-build
           path: ./site
-
-      - name: Download Spring Boot artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: springboot-build
-          path: ./site/api
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
