@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -6,9 +6,15 @@ import { Select } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
+import { UserPreferencesService, AccelerationUnit, DistanceUnit } from '../../services/user-preferences.service';
 
 interface Language {
   code: string;
+  label: string;
+}
+
+interface UnitOption<T> {
+  value: T;
   label: string;
 }
 
@@ -34,8 +40,29 @@ export class SettingsComponent {
     { code: 'de', label: 'Deutsch' }
   ];
 
-  constructor(private languageService: LanguageService) {
+  selectedAccelerationUnit: AccelerationUnit;
+  accelerationUnits: UnitOption<AccelerationUnit>[] = [
+    { value: 'm/s²', label: 'm/s² (mètres par seconde carrée)' },
+    { value: 'g', label: 'g (gravité terrestre)' }
+  ];
+
+  selectedDistanceUnit: DistanceUnit;
+  distanceUnits: UnitOption<DistanceUnit>[] = [
+    { value: 'Mkm', label: 'Millions de km' },
+    { value: 'ua', label: 'ua (unité astronomique)' }
+  ];
+
+  constructor(
+    private languageService: LanguageService,
+    private userPreferencesService: UserPreferencesService,
+    private cdr: ChangeDetectorRef
+  ) {
     this.selectedLanguage = this.languageService.getCurrentLanguage();
+
+    // Initialiser les unités sélectionnées
+    const prefs = this.userPreferencesService.preferences;
+    this.selectedAccelerationUnit = prefs.accelerationUnit;
+    this.selectedDistanceUnit = prefs.distanceUnit;
   }
 
   onHide(): void {
@@ -44,8 +71,17 @@ export class SettingsComponent {
 
   async onLanguageChange(): Promise<void> {
     await this.languageService.setLanguage(this.selectedLanguage);
-    // Auto-close the dialog after language change
-    this.close();
+    this.cdr.markForCheck();
+  }
+
+  onAccelerationUnitChange(): void {
+    this.userPreferencesService.setAccelerationUnit(this.selectedAccelerationUnit);
+    this.cdr.markForCheck();
+  }
+
+  onDistanceUnitChange(): void {
+    this.userPreferencesService.setDistanceUnit(this.selectedDistanceUnit);
+    this.cdr.markForCheck();
   }
 
   close(): void {

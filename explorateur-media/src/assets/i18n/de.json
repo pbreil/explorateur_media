@@ -7,6 +7,10 @@
     "title": "Einstellungen",
     "language": "Sprache",
     "selectLanguage": "Sprache auswählen",
+    "accelerationUnit": "Beschleunigungseinheit",
+    "selectAccelerationUnit": "Beschleunigungseinheit auswählen",
+    "distanceUnit": "Entfernungseinheit",
+    "selectDistanceUnit": "Entfernungseinheit auswählen",
     "close": "Schließen",
     "save": "Speichern"
   },

@@ -87,17 +87,29 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'temurin'
-          cache: 'maven'
+          cache: 'gradle'
 
-      - name: Build with Maven
+      - name: Make gradlew executable
         working-directory: ${{ env.SPRINGBOOT_NAME }}
-        run: mvn clean package -DskipTests
+        run: chmod +x gradlew
+
+      - name: Run Unit Tests
+        working-directory: ${{ env.SPRINGBOOT_NAME }}
+        run: ./gradlew test --tests '*UnitTest'
+
+      - name: Run Integration Tests
+        working-directory: ${{ env.SPRINGBOOT_NAME }}
+        run: ./gradlew test --tests '*IntegrationTest'
+
+      - name: Build with Gradle
+        working-directory: ${{ env.SPRINGBOOT_NAME }}
+        run: ./gradlew clean build
 
       - name: Upload Spring Boot artifact
         uses: actions/upload-artifact@v4
         with:
           name: springboot-build
-          path: ${{ env.SPRINGBOOT_NAME }}/target/*.jar
+          path: ${{ env.SPRINGBOOT_NAME }}/build/libs/*.jar
 
   deploy:
     name: Deploy to GitHub Pages

@@ -1,26 +1,25 @@
-export interface Planet {
+// Modèle de base pour tous les corps célestes
+export interface CelestialBody {
   id: string;
   name: string;
   diameter: string;
-  distanceFromSun: string;
-  numberOfMoons: number;
-  surfaceGravity: string;
-  atmosphericPressure: string;
-  averageTemperature: string;
   mass: string;
   discoveryYear: string;
   discoverer: string;
   orbitalPeriod: string;
 }
 
-export interface Satellite {
-  id: string;
-  name: string;
+// Planète hérite de CelestialBody
+export interface Planet extends CelestialBody {
+  distanceFromSun: string;
+  numberOfMoons: number;
+  surfaceGravity: string;
+  atmosphericPressure: string;
+  averageTemperature: string;
+}
+
+// Satellite hérite de CelestialBody
+export interface Satellite extends CelestialBody {
   planetId: string;
-  diameter: string;
   distanceFromPlanet: string;
-  orbitalPeriod: string;
-  mass: string;
-  discoveryYear: string;
-  discoverer: string;
 }
