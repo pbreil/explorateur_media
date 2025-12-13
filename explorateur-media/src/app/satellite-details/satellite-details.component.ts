@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlanetService } from '../planet.service';
@@ -12,8 +12,7 @@ import { CelestialBodyDetailsComponent } from '../shared/celestial-body-details/
   standalone: true,
   imports: [CommonModule, ButtonModule, TranslateModule, CelestialBodyDetailsComponent],
   templateUrl: './satellite-details.component.html',
-  styleUrls: ['./satellite-details.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./satellite-details.component.css']
 })
 export class SatelliteDetailsComponent implements OnInit {
 
